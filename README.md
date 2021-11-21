@@ -26,7 +26,7 @@
  -Fix bug where speed decreases when looking down or up (due to orientation vector normalization)
  
  
- -Make it so movement doesn't completly stop when colliding with the world but slighty move to the side
+ -Make it so movement doesn't completely stop when colliding with the world but slighty move to the side
  
  
- -Fix bug where surrounding chunks don't update when placing block on edge of chunk
+ -Fix bug where surrounding chunks don't update when placing a block on edge of a chunk
