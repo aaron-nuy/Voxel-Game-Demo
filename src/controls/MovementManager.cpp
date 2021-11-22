@@ -158,7 +158,7 @@ void MovementManager::ManageMovement() {
 	pos = player->getPosition() + glm::vec3(0.5f, 0.5f, 0.5f);
 	ray = pos;
 	while (glm::length(ray - pos) < playerHeight) {
-		ray -= 0.001f * glm::vec3(0.0f, 1.0f, 0.0f);
+		ray -= 0.01f * glm::vec3(0.0f, 1.0f, 0.0f);
 		if (chunkManager->isInBoundaries(ray) && chunkManager->getBlock(ray) != c_Air) {
 			isFalling = 0;
 			fallingVelocity = 0;
