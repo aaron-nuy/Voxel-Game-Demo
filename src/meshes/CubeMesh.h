@@ -1,8 +1,8 @@
 #pragma once
 #include<string>
 
-#include"../abstractions/VAO.h"
 #include"../abstractions/EBO.h"
+#include"../abstractions/VAO.h"
 #include"../abstractions/Texture.h"
 #include"../controls/Player.h"
 

@@ -1,9 +1,7 @@
-#ifndef EBO_CLASS_H
-#define EBO_CLASS_H
+#pragma once
 
-#include<glad/glad.h>
+#include"../dependencies/glad.h"
 #include<vector>
-
 
 class EBO
 {
@@ -29,5 +27,3 @@ private:
 	// ID reference of Elements Buffer Object
 	GLuint ID;
 };
-
-#endif

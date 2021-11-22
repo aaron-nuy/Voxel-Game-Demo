@@ -1,6 +1,5 @@
 #pragma once
 #include<glm/gtc/noise.hpp>
-#include<glad/glad.h>
 #include<vector>
 #include<memory>
 

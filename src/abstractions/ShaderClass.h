@@ -1,5 +1,5 @@
 #pragma once
-#include<glad/glad.h>
+#include"../dependencies/glad.h"
 #include<string>
 #include<fstream>
 #include<sstream>
