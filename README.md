@@ -9,8 +9,10 @@
  
 # Build Instructions
  ### Windows
-  Need to have CMake 3.10 and C++17 support on machine<br/>
+  Need to have CMake 3.10 installed and C++17 support<br/>
   Run build.bat. After it finishes binaries will be found in build/bin/Release and Visual Studio solution is two levels higher
+  
+  
  ### Linux
   Maybe some other day, but should be simple enough. CMakeLists.txt is included
  
