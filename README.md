@@ -8,9 +8,11 @@
  Block textures can be changed by directly editing the texture atlas located in resources\textures\block, the size of the final texture atlas doesn't matter as long as it's a square with a length that is a power of 2.
  
 # Build Instructions
- Good luck, you'll need it.
- 
- Might publish build instructions in the future but I'm currently using Visual Studio to build it and it works fine. So..
+ ###Windows
+  Need to have CMake 3.10 and C++17 support on machine
+  Run build.bat. After it finishes binaries will be found in build/bin/Release and Visual Studio solution is two levels higher
+ ###Linux
+  Maybe some other day, but should be simple enough. CMakeLists.txt is included
  
  
 # TODO
@@ -20,13 +22,16 @@
  -Add multithreading for world generation
  
  
- -Add dynamic world loading from hard drive
- 
- 
- -Fix bug where speed decreases when looking down or up (due to orientation vector normalization)
+ -Fix bug: inconsistent physics with variable framerate
  
  
  -Make it so movement doesn't completely stop when colliding with the world but slighty move to the side
  
  
- -Fix bug where surrounding chunks don't update when placing a block on edge of a chunk
+ -Add dynamic world loading from hard drive
+ 
+ 
+ -Fix bug: speed decreases when looking down or up (due to orientation vector normalization)
+ 
+ 
+ -Fix bug: surrounding chunks don't update when placing a block on edge of a chunk
