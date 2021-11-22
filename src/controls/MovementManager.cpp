@@ -175,7 +175,7 @@ void MovementManager::ManageMovement() {
 		fallingVelocity = -gConst * timePast * timePast;
 		if (fallingVelocity < -25.0f*deltaTime) {
 			fallingVelocity = -25.0f*deltaTime;
-		}	
+		}		
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !isFalling && !isJumping && canJump) {
@@ -189,8 +189,8 @@ void MovementManager::ManageMovement() {
 	if (isJumping) {
 		isFalling = 1;
 		jumpTime += deltaTime;
-		jumpingVelocity = 2*jumpTime;
-		if (jumpingVelocity > 5 * deltaTime) {
+		jumpingVelocity = 2.0f*jumpTime;
+		if (jumpingVelocity > 5.0f * deltaTime) {
 			isJumping = 0;
 		}
 	}
