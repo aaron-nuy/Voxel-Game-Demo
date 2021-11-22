@@ -8,10 +8,10 @@
  Block textures can be changed by directly editing the texture atlas located in resources\textures\block, the size of the final texture atlas doesn't matter as long as it's a square with a length that is a power of 2.
  
 # Build Instructions
- ###Windows
-  Need to have CMake 3.10 and C++17 support on machine
+ ### Windows
+  Need to have CMake 3.10 and C++17 support on machine<br/>
   Run build.bat. After it finishes binaries will be found in build/bin/Release and Visual Studio solution is two levels higher
- ###Linux
+ ### Linux
   Maybe some other day, but should be simple enough. CMakeLists.txt is included
  
  
