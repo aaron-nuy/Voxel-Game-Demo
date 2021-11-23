@@ -56,7 +56,7 @@ private:
 	GLuint instances = 1;
 	Texture* _mTexture;
 	Shader* _mShader;
-	VAO VAO;
+	VAO _mVAO;
 	Vertex3 verticesArray[24] = {
 	Vertex3{glm::vec3(-0.5f,-0.5f, 0.5f), glm::vec3(0.0f,-1.0f, 0.0f), glm::vec2(0.0f, 0.0f)},		//0 0
 	Vertex3{glm::vec3(0.5f,-0.5f, 0.5f), glm::vec3(0.0f,-1.0f, 0.0f), glm::vec2(1.0f, 0.0f)},		//1 1
