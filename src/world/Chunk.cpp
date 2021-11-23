@@ -265,7 +265,7 @@ void Chunk::generateTerrain(GLfloat freq, GLfloat depth, GLfloat xPos, GLfloat z
 			height = glm::simplex(glm::vec2(xP * freq, zP * freq));		
 			height = ((height + 1) / 2.0f) * (depth*2);
 			height += glm::perlin(glm::vec2(xP *10000-963, zP *10000-142))*70;
-			if (height >= _mChunkSizeY || isnan(height)) {
+			if (height >= _mChunkSizeY || glm::isnan(height)) {
 				height = _mChunkSizeY - 1;
 			}
 			Blocks[x][(int)height][z] = c_Grass;
