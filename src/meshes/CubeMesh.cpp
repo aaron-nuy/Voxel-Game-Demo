@@ -15,14 +15,14 @@ CubeMesh::CubeMesh(Shader* shader) {
 	vertices.assign(verticesArray, verticesArray + sizeof(verticesArray) / sizeof(Vertex3));
 	indices.assign(indicesArray, indicesArray + sizeof(indicesArray) / sizeof(GLuint));
 
-	VAO.Bind();
-	VBO VBO(vertices);
-	EBO EBO(indices);
-	VAO.LinkAttrib(VBO, 0, 3, GL_FLOAT, sizeof(Vertex3), (void*)0);
-	VAO.LinkAttrib(VBO, 1, 3, GL_FLOAT, sizeof(Vertex3), (void*)(1 * sizeof(glm::vec3)));
-	VAO.Unbind();
-	VBO.Unbind();
-	EBO.Unbind();
+	_mVAO.Bind();
+	VBO _mVBO(vertices);
+	EBO _mEBO(indices);
+	_mVAO.LinkAttrib(_mVBO, 0, 3, GL_FLOAT, sizeof(Vertex3), (void*)0);
+	_mVAO.LinkAttrib(_mVBO, 1, 3, GL_FLOAT, sizeof(Vertex3), (void*)(1 * sizeof(glm::vec3)));
+	_mVAO.Unbind();
+	_mVBO.Unbind();
+	_mEBO.Unbind();
 }
 CubeMesh::CubeMesh(Shader* shader,Texture* text) {
 	// Loads data from static array to dynamic array ( vector aka arraylist in java)
@@ -36,14 +36,14 @@ CubeMesh::CubeMesh(Shader* shader,Texture* text) {
 		_mTexture->Assign(*_mShader, "diffuse0", _mTexture->getUnit());
 	}
 
-	VAO.Bind();
-	VBO VBO(vertices);
-	EBO EBO(indices);
-	VAO.LinkAttrib(VBO, 0, 3, GL_FLOAT, sizeof(Vertex3), (void*)0);
-	VAO.LinkAttrib(VBO, 1, 3, GL_FLOAT, sizeof(Vertex3), (void*)(1 * sizeof(glm::vec3)));
-	VAO.LinkAttrib(VBO, 2, 2, GL_FLOAT, sizeof(Vertex3), (void*)(2 * sizeof(glm::vec3)));
-	VBO.Unbind();
-	EBO.Unbind();
+	_mVAO.Bind();
+	VBO _mVBO(vertices);
+	EBO _mEBO(indices);
+	_mVAO.LinkAttrib(_mVBO, 0, 3, GL_FLOAT, sizeof(Vertex3), (void*)0);
+	_mVAO.LinkAttrib(_mVBO, 1, 3, GL_FLOAT, sizeof(Vertex3), (void*)(1 * sizeof(glm::vec3)));
+	_mVAO.LinkAttrib(_mVBO, 2, 2, GL_FLOAT, sizeof(Vertex3), (void*)(2 * sizeof(glm::vec3)));
+	_mVBO.Unbind();
+	_mEBO.Unbind();
 }
 CubeMesh::CubeMesh(Shader* shader,Texture* text , GLuint instance ,std::vector <glm::mat4> instanceTransformMatrix) {
 	// Loads data from static array to dynamic array ( vector aka arraylist in java)
@@ -57,35 +57,35 @@ CubeMesh::CubeMesh(Shader* shader,Texture* text , GLuint instance ,std::vector <
 		_mTexture->Assign(*_mShader, "diffuse0", _mTexture->getUnit());
 	}
 
-	VAO.Bind();
-	VBO VBO(vertices);
-	EBO EBO(indices);
-	VAO.LinkAttrib(VBO, 0, 3, GL_FLOAT, sizeof(Vertex3), (void*)0);
-	VAO.LinkAttrib(VBO, 1, 3, GL_FLOAT, sizeof(Vertex3), (void*)(1 * sizeof(glm::vec3)));
-	VAO.LinkAttrib(VBO, 2, 2, GL_FLOAT, sizeof(Vertex3), (void*)(2 * sizeof(glm::vec3)));
+	_mVAO.Bind();
+	VBO _mVBO(vertices);
+	EBO _mEBO(indices);
+	_mVAO.LinkAttrib(_mVBO, 0, 3, GL_FLOAT, sizeof(Vertex3), (void*)0);
+	_mVAO.LinkAttrib(_mVBO, 1, 3, GL_FLOAT, sizeof(Vertex3), (void*)(1 * sizeof(glm::vec3)));
+	_mVAO.LinkAttrib(_mVBO, 2, 2, GL_FLOAT, sizeof(Vertex3), (void*)(2 * sizeof(glm::vec3)));
 	// Passes transformations matrix vector as 4 vec4s
 	passTransformMatrix(instanceTransformMatrix, instance);
 	// Unbind all to prevent accidentally modifying them
-	VBO.Unbind();
-	EBO.Unbind();
+	_mVBO.Unbind();
+	_mEBO.Unbind();
 }
 
 void CubeMesh::passTransformMatrix(std::vector <glm::mat4> instanceTransformMatrix, GLuint instance) {
 	instances = instance;
 	instancesTransformMatrix = instanceTransformMatrix;
-	VAO.Bind();
+	_mVAO.Bind();
 	VBO instanceVBO(instancesTransformMatrix);
-	VAO.LinkAttrib(instanceVBO, 3, 4, GL_FLOAT, sizeof(glm::mat4), (void*)(0));
-	VAO.LinkAttrib(instanceVBO, 4, 4, GL_FLOAT, sizeof(glm::mat4), (void*)(1 * sizeof(glm::vec4)));
-	VAO.LinkAttrib(instanceVBO, 5, 4, GL_FLOAT, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
-	VAO.LinkAttrib(instanceVBO, 6, 4, GL_FLOAT, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
+	_mVAO.LinkAttrib(instanceVBO, 3, 4, GL_FLOAT, sizeof(glm::mat4), (void*)(0));
+	_mVAO.LinkAttrib(instanceVBO, 4, 4, GL_FLOAT, sizeof(glm::mat4), (void*)(1 * sizeof(glm::vec4)));
+	_mVAO.LinkAttrib(instanceVBO, 5, 4, GL_FLOAT, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
+	_mVAO.LinkAttrib(instanceVBO, 6, 4, GL_FLOAT, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
 	// Advances the pivot(?) in vertex shader
 	// ie makes it use the next element in transform matrix after drawing an instance
 	glVertexAttribDivisor(3, 1);
 	glVertexAttribDivisor(4, 1);
 	glVertexAttribDivisor(5, 1);
 	glVertexAttribDivisor(6, 1);
-	VAO.Unbind();
+	_mVAO.Unbind();
 	instanceVBO.Unbind();
 }
 
@@ -93,7 +93,7 @@ void CubeMesh::DrawInstanced( Player& camera, GLFWwindow* window)
 {
 	// Bind shader to be able to access uniforms
 	_mShader->Activate();
-	VAO.Bind();
+	_mVAO.Bind();
 
 
 	glUniform3f(glGetUniformLocation(_mShader->getID(), "camPos"), camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
@@ -105,7 +105,7 @@ void CubeMesh::Draw(Player& camera, GLFWwindow* window)
 {
 	// Bind shader to be able to access uniforms
 	_mShader->Activate();
-	VAO.Bind();
+	_mVAO.Bind();
 
 
 	glUniform3f(glGetUniformLocation(_mShader->getID(), "camPos"), camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
