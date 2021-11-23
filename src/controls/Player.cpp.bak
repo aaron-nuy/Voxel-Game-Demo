@@ -46,17 +46,19 @@ void Player::MoveBack()
 }
 void Player::MoveRight()
 {
-	Position += Speed * glm::normalize(glm::cross(Orientation, Up));
+	Position.x += Speed.x * glm::normalize(glm::cross(Orientation, Up)).x;
+	Position.z += Speed.z * glm::normalize(glm::cross(Orientation, Up)).z;
 }
 void Player::MoveLeft()
 {
-	Position += Speed * -glm::normalize(glm::cross(Orientation, Up));
+	Position.x += Speed.x * -glm::normalize(glm::cross(Orientation, Up)).x;
+	Position.z += Speed.z * -glm::normalize(glm::cross(Orientation, Up)).z;
 }
 void Player::MoveUp() {
-	Position += Speed * Up;
+	Position.y += Speed.y;
 }
 void Player::MoveDown() {
-	Position -= Speed * Up;
+	Position.y -= Speed.y;
 }
 // Back and forward movement in free cam mode
 void Player::MoveForFPS()
