@@ -4,10 +4,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # set the project name
-project(voxel VERSION 0.1.0)
+project(Voxel-Game-Demo VERSION 0.1.0)
 
 # add the executable
-add_executable(voxel
+add_executable(Voxel-Game-Demo
 					 src/abstractions/ShaderClass.cpp
 					 src/abstractions/EBO.cpp
 					 src/abstractions/VBO.cpp
@@ -23,6 +23,6 @@ add_executable(voxel
 					 src/Main.cpp)
 
 
-target_include_directories(voxel PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/include/)
-target_link_libraries(voxel ${CMAKE_SOURCE_DIR}/Libraries/lib/glfw3.lib)
+target_include_directories(Voxel-Game-Demo PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Libraries/include/)
+target_link_libraries(Voxel-Game-Demo ${CMAKE_SOURCE_DIR}/Libraries/lib/glfw3.lib)
 
