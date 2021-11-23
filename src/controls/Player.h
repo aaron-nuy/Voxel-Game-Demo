@@ -30,7 +30,7 @@ public:
 	void setSpeedZ(GLfloat speed);
 	void setPositionY(float newY);
 	void setOrientation(glm::vec3 orientation);
-	glm::vec3 getUp();
+	glm::vec3 UpVector();
 	glm::vec3 getSpeed();
 	glm::vec3 getPosition();
 	glm::vec3 getOrientation();

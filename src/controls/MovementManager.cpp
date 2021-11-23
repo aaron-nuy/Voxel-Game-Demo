@@ -112,9 +112,9 @@ void MovementManager::ManageMovement() {
 		ray2 = pos + glm::vec3(0.0f, playerHeight, 0.0f);
 		ray3 = pos + glm::vec3(0.0f, -0.5f, 0.0f);
 		while (glm::length(ray - pos) < 0.25f) {
-			ray += 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->getUp()));
-			ray2 += 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->getUp()));
-			ray3 += 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->getUp()));
+			ray += 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->UpVector()));
+			ray2 += 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->UpVector()));
+			ray3 += 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->UpVector()));
 			if (chunkManager->isInBoundaries(ray) && chunkManager->isInBoundaries(ray2) && chunkManager->isInBoundaries(ray3)
 			&& (chunkManager->getBlock(ray) != c_Air || chunkManager->getBlock(ray2) != c_Air || chunkManager->getBlock(ray3) != c_Air)) {
 				canMoveRight = 0;
@@ -130,9 +130,9 @@ void MovementManager::ManageMovement() {
 		ray2 = pos + glm::vec3(0.0f, playerHeight, 0.0f);
 		ray3 = pos + glm::vec3(0.0f, -0.5f, 0.0f);
 		while (glm::length(ray - pos) < 0.25f) {
-			ray -= 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->getUp()));
-			ray2 -= 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->getUp()));
-			ray3 -= 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->getUp()));
+			ray -= 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->UpVector()));
+			ray2 -= 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->UpVector()));
+			ray3 -= 0.1f * glm::normalize(glm::cross(glm::vec3(orien.x, 0, orien.z), player->UpVector()));
 			if (chunkManager->isInBoundaries(ray) && chunkManager->isInBoundaries(ray2) && chunkManager->isInBoundaries(ray3)
 			&& (chunkManager->getBlock(ray) != c_Air || chunkManager->getBlock(ray2) != c_Air || chunkManager->getBlock(ray3) != c_Air)) {
 				canMoveLeft = 0;
@@ -219,7 +219,7 @@ void MovementManager::ManageMovement() {
 		player->setOrientation(glm::vec3(player->getOrientation().x, 0.99f, player->getOrientation().z));
 	}
 	//			Rotates World around the vertical center (horizonal rotation with mouse)
-	player->setOrientation(glm::rotate(player->getOrientation(), glm::radians(GLfloat(xDelta)), player->getUp()));
+	player->setOrientation(glm::rotate(player->getOrientation(), glm::radians(GLfloat(xDelta)), player->UpVector()));
 	//			Rotates World around the horizontal center (vertical rotation with mouse)
 	player->setOrientation(glm::normalize(player->getOrientation() + glm::vec3(0.0f, glm::radians(yDelta), 0.0f)));
 	//			Sets previous cursor position

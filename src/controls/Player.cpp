@@ -38,15 +38,11 @@ void Player::setSpeedZ(GLfloat speed)
 }
 void Player::MoveFor()
 {
-	Position.x += Speed.x * Orientation.x;
-	Position.z += Speed.z * Orientation.z;
-	Position.y += Speed.y * Orientation.y;
+	Position += Speed * Orientation;
 }
 void Player::MoveBack()
 {	
-	Position.x -= Speed.x * Orientation.x;
-	Position.z -= Speed.z * Orientation.z;
-	Position.y -= Speed.y * Orientation.y;
+	Position -= Speed * Orientation;
 }
 void Player::MoveRight()
 {
@@ -67,16 +63,14 @@ void Player::MoveDown() {
 // Back and forward movement in free cam mode
 void Player::MoveForFPS()
 {
-	Position.x += Speed.x * Orientation.x;
-	Position.z += Speed.z * Orientation.z;
+	Position += Speed * glm::normalize(glm::vec3(Orientation.x, 0.0f, Orientation.z));
 }
 void Player::MoveBackFPS()
 {
-	Position.x -= Speed.x * Orientation.x;
-	Position.z -= Speed.z * Orientation.z;
+	Position -= Speed * glm::normalize(glm::vec3(Orientation.x, 0.0f, Orientation.z));
 }
 
-glm::vec3 Player::getUp() {
+glm::vec3 Player::UpVector() {
 	return Up;
 }
 glm::vec3 Player::getSpeed() {
