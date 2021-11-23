@@ -6,7 +6,7 @@ Mesh::Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::v
 	Mesh::indices = indices;
 	Mesh::textures = textures;
 
-	VAO.Bind();
+	_mVAO.Bind();
 	// Generates Vertex Buffer Object and links it to vertices
 	VBO _mVBO(vertices);
 	// Generates Element Buffer Object and links it to indices
