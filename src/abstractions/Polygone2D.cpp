@@ -20,6 +20,6 @@ void Polygone2D::Draw(float aspect) {
 	texture->Bind();
 	texture->Assign(*shader, "diffuse0", 1);
 
-	_mVVAO.Bind();
+	_mVAO.Bind();
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
