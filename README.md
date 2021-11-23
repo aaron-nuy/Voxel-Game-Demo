@@ -14,17 +14,20 @@
   
   
  ### Linux
-  Maybe some other day, but should be simple enough. CMakeLists.txt is included
+  Maybe some other day, but should be simple enough. Build GLFW for Linux, replace the included GLFW with the newly built one, run CMake with CMakeLists.txt 
  
  
 # TODO
+ -Fix bug: surrounding chunks don't update when placing a block on edge of a chunk
+ 
+ 
+  -Fix bug: inconsistent physics with variable framerate
+  
+ 
  -Organize code and add comments
  
  
  -Add multithreading for world generation
- 
- 
- -Fix bug: inconsistent physics with variable framerate
  
  
  -Make it so movement doesn't completely stop when colliding with the world but slighty move to the side
@@ -33,7 +36,5 @@
  -Add dynamic world loading from hard drive
  
  
- -Fix bug: speed decreases when looking down or up (due to orientation vector normalization)
  
- 
- -Fix bug: surrounding chunks don't update when placing a block on edge of a chunk
+
