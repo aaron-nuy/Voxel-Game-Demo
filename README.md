@@ -3,7 +3,7 @@
 # Voxel-Game-Demo
  A Minecraft like game with basic rendering, movement, block placement.. All made from scratch
  
- Downlod Pre-compiled binaries (executable) [Here](https://github.com/aaron-nuy/Voxel-Game-Demo/releases/tag/v0.1.0-alpha).
+ Downlod Pre-compiled binaries [Here](https://github.com/aaron-nuy/Voxel-Game-Demo/releases/tag/v0.1.0-alpha).
  
  Block textures can be changed by directly editing the texture atlas located in resources\textures\block, the size of the final texture atlas doesn't matter as long as it's a square with a length that is a power of 2.
  
