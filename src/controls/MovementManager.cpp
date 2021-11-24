@@ -1,7 +1,7 @@
 #include "MovementManager.h"
 
 char signof(float num) {
-	return pow(-1, signbit(num));
+	return pow(-1, std::signbit(num));
 }
 void print(std::string string, float number) {
 	std::cout << string + ": " << number << "." << std::endl;
