@@ -19,7 +19,7 @@ add_executable(Voxel-Game-Demo
 					 src/world/Chunk.cpp
 					 src/world/ChunkManager.cpp
 					 src/dependencies/stb_image.cpp
-					 src/dependencies/glad.cpp
+					 src/dependencies/glad.c
 					 src/Main.cpp)
 
 
