@@ -15,6 +15,8 @@
   
  ### Linux
   There is no Linux support, and with the included libraries as they are, it won't compile.
+  
+  The .exe does run on Wine however
  
  
 # TODO
