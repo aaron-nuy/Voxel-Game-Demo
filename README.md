@@ -14,7 +14,7 @@
   
   
  ### Linux
-  Maybe some other day, but should be simple enough. Build GLFW for Linux, replace the included GLFW with the newly built one, run CMake with CMakeLists.txt 
+  There is no Linux support, and with the included libraries as they are, it won't compile.
  
  
 # TODO
