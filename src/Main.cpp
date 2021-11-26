@@ -57,8 +57,6 @@ void generate(ChunkManager* chunkManager, Player* player, glm::vec3* previousPla
 
 
 int main() {
-
-
 	// Sets default settings and initializes window
 	#pragma region MyRegion
 	// Initialize GLFW
@@ -114,9 +112,6 @@ int main() {
 	glCullFace(GL_FRONT);
 	glFrontFace(GL_CCW);
 	#pragma endregion
-
-
-
 
 	double time = glfwGetTime();
 	std::string windowTitle;

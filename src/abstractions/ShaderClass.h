@@ -15,6 +15,7 @@ std::string get_file_contents(const char* filename);
 class Shader
 {
 public:
+	Shader();
 	Shader(const char* vertexFile, const char* fragmentFile);
 	GLuint GetUniID(const char* name);
 

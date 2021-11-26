@@ -1,5 +1,9 @@
 #include "CubeMesh.h"
 
+CubeMesh::CubeMesh() {
+
+};
+
 CubeMesh::CubeMesh(Shader* shader) {
 	instances = 1;
 	instancesTransformMatrix.push_back(glm::mat4(1.0));

@@ -63,9 +63,9 @@ public:
 	static const int _mChunkSizeY = 64;
 	long posX = 0, posZ = 0;
 	unsigned char Blocks[_mChunkSize][_mChunkSizeY][_mChunkSize] = { 0 };
-	VAO _mVAO;
-	VBO _mVBO;
-	EBO _mEBO;
+	VAO VAO;
+	VBO VBO;
+	EBO EBO;
 	std::vector<GLuint> Indices;
 	std::vector<Vertex3> Vertices;
 

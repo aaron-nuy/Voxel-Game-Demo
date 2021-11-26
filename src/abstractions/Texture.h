@@ -3,7 +3,7 @@
 
 
 #include"../dependencies/stb_image.h"
-#include"ShaderClass.h"
+#include"shaderClass.h"
 
 class Texture
 {

@@ -1,7 +1,7 @@
 #include "MovementManager.h"
 
 char signof(float num) {
-	return pow(-1, std::signbit(num));
+	return pow(-1, signbit(num));
 }
 void print(std::string string, float number) {
 	std::cout << string + ": " << number << "." << std::endl;
@@ -34,6 +34,9 @@ MovementManager::MovementManager(Player* player, ChunkManager* chunkManager, GLF
 	this->player = player;
 	this->window = window;
 	this->chunkManager = chunkManager;
+	this->cubeShader = Shader("resources/shaders/cube.vert", "resources/shaders/cube.frag");
+	std::vector<glm::mat4> Trans(1,glm::mat4(1.0));
+	this->cubeMesh = CubeMesh(&cubeShader, NULL, 1, Trans);
 }
 
 
@@ -225,6 +228,25 @@ void MovementManager::ManageMovement() {
 	//			Sets previous cursor position
 	pypos = ypos, pxpos = xpos;
 	#pragma endregion
+
+
+	orien = player->getOrientation();
+	pos = player->getPosition() + glm::vec3(0.5f, 0.5f, 0.5f);
+	ray = pos;
+	foundBlock = false;
+	while (!foundBlock) {
+		ray += 0.01f * orien;
+		if (chunkManager->isInBoundaries(ray) && chunkManager->getBlock(ray) != c_Air) {
+			foundBlock = true;
+			glm::mat4 trans = glm::translate(glm::mat4(1.0f), integrify(ray));
+			std::vector<glm::mat4> T;
+			T.push_back(trans);
+			cubeMesh.passTransformMatrix(T,1);
+			cubeMesh.Draw(*player, window);
+		}
+		if (glm::length(ray - pos) > 128.0f) break;
+	}
+
 
 
 	if (canClick) {

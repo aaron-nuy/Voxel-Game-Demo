@@ -29,12 +29,13 @@ public:
 		23,21,20,
 		20,22,23
 	};
-
+	
 
 	std::vector <Vertex3> vertices;
 	std::vector <GLuint> indices;
 	std::vector <glm::mat4> instancesTransformMatrix;
 
+	CubeMesh();
 	CubeMesh(Shader* shader);
 	CubeMesh(Shader* shader,Texture* text);
 	CubeMesh(Shader* shader, Texture* text, GLuint instance, std::vector <glm::mat4> instanceTransformMatrix);
@@ -52,7 +53,7 @@ public:
 
 private:
 	bool isActive = 0;
-	GLenum mode = GL_TRIANGLES;
+	GLenum mode = GL_LINE_LOOP;
 	GLuint instances = 1;
 	Texture* _mTexture;
 	Shader* _mShader;

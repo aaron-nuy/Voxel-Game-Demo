@@ -6,9 +6,9 @@
 class Polygone2D
 {
 public:
-	VAO _mVAO;
-	VBO _mVBO;
-	EBO _mEBO;
+	VAO VAO;
+	VBO VBO;
+	EBO EBO;
 	Texture* texture;
 	Shader* shader;
 	float ratio;

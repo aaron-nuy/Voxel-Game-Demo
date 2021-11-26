@@ -4,14 +4,14 @@ Polygone2D::Polygone2D(Texture* text, Shader* shade )
 {
 	texture = text;
 	shader = shade;
-	_mVAO.Bind();
-	_mVBO.Load(crossHairArrayVerts, sizeof(crossHairArrayVerts));
-	_mEBO.Load(crossHairArrayIndices, sizeof(crossHairArrayIndices));
-	_mVAO.LinkAttrib(_mVBO, 0, 2, GL_FLOAT, sizeof(GLfloat) * 4, (void*)0);
-	_mVAO.LinkAttrib(_mVBO, 1, 2, GL_FLOAT, sizeof(GLfloat) * 4, (void*)(2 * sizeof(GLfloat)));
-	_mVAO.Unbind();
-	_mVBO.Unbind();
-	_mEBO.Unbind();
+	VAO.Bind();
+	VBO.Load(crossHairArrayVerts, sizeof(crossHairArrayVerts));
+	EBO.Load(crossHairArrayIndices, sizeof(crossHairArrayIndices));
+	VAO.LinkAttrib(VBO, 0, 2, GL_FLOAT, sizeof(GLfloat) * 4, (void*)0);
+	VAO.LinkAttrib(VBO, 1, 2, GL_FLOAT, sizeof(GLfloat) * 4, (void*)(2 * sizeof(GLfloat)));
+	VAO.Unbind();
+	VBO.Unbind();
+	EBO.Unbind();
 }
 
 void Polygone2D::Draw(float aspect) {
@@ -20,6 +20,6 @@ void Polygone2D::Draw(float aspect) {
 	texture->Bind();
 	texture->Assign(*shader, "diffuse0", 1);
 
-	_mVAO.Bind();
+	VAO.Bind();
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

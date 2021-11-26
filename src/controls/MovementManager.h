@@ -1,6 +1,7 @@
 #pragma once
 #include"../world/ChunkManager.h"
 #include"Player.h"
+#include"../meshes/CubeMesh.h"
 
 
 class MovementManager
@@ -9,6 +10,8 @@ private:
 	Player* player;
 	ChunkManager* chunkManager;
 	GLFWwindow* window;
+	CubeMesh cubeMesh;
+	Shader cubeShader;
 	glm::vec3 orien,pos,ray,ray2,ray3;
 	double xpos, ypos, pypos, pxpos, yDelta, xDelta;
 	double currentFrame, lastFrame = 0.0f;

@@ -241,15 +241,15 @@ void Chunk::checkFaces() {
 
 // Pushes mesh data to vao
 void Chunk::loadVertices() {
-	_mVAO.Bind();
-	_mVBO.Load(Vertices);
-	_mEBO.Load(Indices);
-	_mVAO.LinkAttrib(_mVBO, 0, 3, GL_FLOAT, sizeof(Vertex3), (void*)0);
-	_mVAO.LinkAttrib(_mVBO, 1, 3, GL_FLOAT, sizeof(Vertex3), (void*)(1 * sizeof(glm::vec3)));
-	_mVAO.LinkAttrib(_mVBO, 2, 2, GL_FLOAT, sizeof(Vertex3), (void*)(2 * sizeof(glm::vec3)));
-	_mVAO.Unbind();
-	_mVBO.Unbind();
-	_mEBO.Unbind();
+	VAO.Bind();
+	VBO.Load(Vertices);
+	EBO.Load(Indices);
+	VAO.LinkAttrib(VBO, 0, 3, GL_FLOAT, sizeof(Vertex3), (void*)0);
+	VAO.LinkAttrib(VBO, 1, 3, GL_FLOAT, sizeof(Vertex3), (void*)(1 * sizeof(glm::vec3)));
+	VAO.LinkAttrib(VBO, 2, 2, GL_FLOAT, sizeof(Vertex3), (void*)(2 * sizeof(glm::vec3)));
+	VAO.Unbind();
+	VBO.Unbind();
+	EBO.Unbind();
 }
 
 // Noise Generation
@@ -265,7 +265,7 @@ void Chunk::generateTerrain(GLfloat freq, GLfloat depth, GLfloat xPos, GLfloat z
 			height = glm::simplex(glm::vec2(xP * freq, zP * freq));		
 			height = ((height + 1) / 2.0f) * (depth*2);
 			height += glm::perlin(glm::vec2(xP *10000-963, zP *10000-142))*70;
-			if (height >= _mChunkSizeY || glm::isnan(height)) {
+			if (height >= _mChunkSizeY || isnan(height)) {
 				height = _mChunkSizeY - 1;
 			}
 			Blocks[x][(int)height][z] = c_Grass;
@@ -283,8 +283,8 @@ void Chunk::generateTerrain(GLfloat freq, GLfloat depth, GLfloat xPos, GLfloat z
 // Deletes VBO/EBO/VAO to save gpu memory
 Chunk::~Chunk()
 {
-	_mVBO.Delete();
-	_mEBO.Delete();
-	_mVAO.Delete();
+	VBO.Delete();
+	EBO.Delete();
+	VAO.Delete();
 }
 

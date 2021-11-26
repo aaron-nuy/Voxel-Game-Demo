@@ -1,4 +1,4 @@
-#include"ShaderClass.h"
+#include"shaderClass.h"
 
 // Reads a text file and outputs a string with everything in the text file
 std::string get_file_contents(const char* filename)
@@ -15,6 +15,10 @@ std::string get_file_contents(const char* filename)
 		return(contents);
 	}
 	throw(errno);
+}
+
+Shader::Shader()
+{
 }
 
 // Constructor that build the Shader Program from 2 different shaders

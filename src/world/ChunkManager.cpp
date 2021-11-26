@@ -131,7 +131,7 @@ void ChunkManager::Draw(Player& player, GLFWwindow* window) {
 
 	for (unsigned short i = 0; i < _mRenderingDistance; i++) {
 		for (unsigned short j = 0; j < _mRenderingDistance; j++) {
-			chunkList[i][j]->_mVAO.Bind();
+			chunkList[i][j]->VAO.Bind();
 			glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(chunkList[i][j]->posX, 0, chunkList[i][j]->posZ));
 			_mShader->SetUniform(_mShader->GetUniID("transform"), transform);
 			_mShader->SetUniform(_mShader->GetUniID("camPos"), player.getPosition().x, player.getPosition().y, player.getPosition().z);

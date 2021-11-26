@@ -21,6 +21,6 @@ private:
 	std::vector <Vertex> vertices;
 	std::vector <GLuint> indices;
 	std::vector <Texture> textures;
-	VAO _mVAO;
+	VAO VAO;
 };
 #endif
