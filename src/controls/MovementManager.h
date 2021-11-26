@@ -10,8 +10,7 @@ private:
 	Player* player;
 	ChunkManager* chunkManager;
 	GLFWwindow* window;
-	CubeMesh cubeMesh;
-	Shader cubeShader;
+	CubeMesh* cubeMesh;
 	glm::vec3 orien,pos,ray,ray2,ray3;
 	double xpos, ypos, pypos, pxpos, yDelta, xDelta;
 	double currentFrame, lastFrame = 0.0f;

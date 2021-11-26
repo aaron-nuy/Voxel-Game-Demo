@@ -1,4 +1,4 @@
-#pragma once
+	#pragma once
 #include<string>
 
 #include"../abstractions/EBO.h"
@@ -7,87 +7,70 @@
 #include"../controls/Player.h"
 
 
+enum Mode {
+	Triangles = GL_TRIANGLES,
+	LineLoop = GL_LINE_LOOP,
+	LineStrip = GL_LINE_STRIP,
+	LineStripAdj = GL_LINE_STRIP_ADJACENCY,
+	Lines = GL_LINES
+};
+
+
 class CubeMesh {
 public:
-	GLuint indicesArray[36] = {
-		// Bottom 
+	GLfloat vertices[24] = {
+		-0.501f,-0.501f, 0.501f,	//0
+		 0.501f,-0.501f, 0.501f,	//1
+		 0.501f,-0.501f,-0.501f,	//2
+		-0.501f,-0.501f,-0.501f,	//3
+		-0.501f, 0.501f, 0.501f,	//4
+		 0.501f, 0.501f, 0.501f,	//5 
+		 0.501f, 0.501f,-0.501f,	//6
+		-0.501f, 0.501f,-0.501f	//7
+	};
+	GLuint indices[24] = {
+
+		0,1,
+		1,2,
+		2,3,
+		3,0,
+		0,4,
+		4,5,
+		5,6,
+		6,7,
+		7,4,
+		1,5,
+		2,6,
+		3,7
+		/* // Bottom 
 		0,1,2,
 		2,3,0,
 		// Left
-		6,4,5,
-		5,7,6,
+		0,3,7,
+		7,4,0,
 		// Back
-		9,8,10,
-		10,11,9,
+		7,3,2,
+		2,6,7,
 		// Right
-		15,13,12,
-		12,14,15,
+		6,2,1,
+		1,5,6,
 		// Top
-		18,17,16,
-		16,19,18,
+		6,5,4,
+		4,7,6,
 		// Front
-		23,21,20,
-		20,22,23
+		0,4,5,
+		5,1,0*/
 	};
-	
 
-	std::vector <Vertex3> vertices;
-	std::vector <GLuint> indices;
-	std::vector <glm::mat4> instancesTransformMatrix;
+
 
 	CubeMesh();
-	CubeMesh(Shader* shader);
-	CubeMesh(Shader* shader,Texture* text);
-	CubeMesh(Shader* shader, Texture* text, GLuint instance, std::vector <glm::mat4> instanceTransformMatrix);
-	
-	GLenum getMode();
-	GLuint getInstances();
-	bool isActivef();
 	void setMode(GLenum mode);
-	void setInstances(GLuint instances);
-	void setActive(bool active);
-
 	void Draw( Player& camera, GLFWwindow* window);
-	void DrawInstanced( Player& camera, GLFWwindow* window);
-	void passTransformMatrix(std::vector <glm::mat4> instanceTransformMatrix, GLuint instace);
+	void passTransformMatrix(glm::mat4 TransformMatrix);
 
 private:
-	bool isActive = 0;
-	GLenum mode = GL_LINE_LOOP;
-	GLuint instances = 1;
-	Texture* _mTexture;
+	GLenum mode = Lines;
 	Shader* _mShader;
 	VAO _mVAO;
-	Vertex3 verticesArray[24] = {
-	Vertex3{glm::vec3(-0.5f,-0.5f, 0.5f), glm::vec3(0.0f,-1.0f, 0.0f), glm::vec2(0.0f, 0.0f)},		//0 0
-	Vertex3{glm::vec3(0.5f,-0.5f, 0.5f), glm::vec3(0.0f,-1.0f, 0.0f), glm::vec2(1.0f, 0.0f)},		//1 1
-	Vertex3{glm::vec3(0.5f,-0.5f,-0.5f), glm::vec3(0.0f,-1.0f, 0.0f), glm::vec2(1.0f, 1.0f)},		//2 2 Bottom
-	Vertex3{glm::vec3(-0.5f,-0.5f,-0.5f), glm::vec3(0.0f,-1.0f, 0.0f), glm::vec2(0.0f, 1.0f)},		//3 3
-
-	Vertex3{glm::vec3(-0.5f,-0.5f, 0.5f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f)},		//0 4
-	Vertex3{glm::vec3(-0.5f,-0.5f,-0.5f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.0f)},		//3 5
-	Vertex3{glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 1.0f)},		//4 6 Left
-	Vertex3{glm::vec3(-0.5f, 0.5f,-0.5f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f)},		//7 7
-
-	Vertex3{glm::vec3(0.5f,-0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f), glm::vec2(1.0f, 0.0f)},		//2 8
-	Vertex3{glm::vec3(-0.5f,-0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f), glm::vec2(0.0f, 0.0f)},		//3 9
-	Vertex3{glm::vec3(0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f), glm::vec2(1.0f, 1.0f)},		//6 10 Back
-	Vertex3{glm::vec3(-0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f), glm::vec2(0.0f, 1.0f)},		//7 11
-
-	Vertex3{glm::vec3(0.5f,-0.5f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f)},		//1 12
-	Vertex3{glm::vec3(0.5f,-0.5f,-0.5f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 1.0f)},		//2 13
-	Vertex3{glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 0.0f)},		//5 14 Right
-	Vertex3{glm::vec3(0.5f, 0.5f,-0.5f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(1.0f, 1.0f)},		//6 15
-
-	Vertex3{glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 0.0f)},		//4 16 Top
-	Vertex3{glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 0.0f)},		//5 17
-	Vertex3{glm::vec3(0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 1.0f)},		//6 18
-	Vertex3{glm::vec3(-0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 1.0f)},		//7 19
-
-	Vertex3{glm::vec3(-0.5f,-0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.0f)},		//0 20
-	Vertex3{glm::vec3(0.5f,-0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f)},		//1 21
-	Vertex3{glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 0.0f)},		//4 22 Front
-	Vertex3{glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f)} 	    //5 23
-
-	};
 };

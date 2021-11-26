@@ -26,6 +26,7 @@ public:
 	VBO(std::vector<Vertex3> &vertices);
 	VBO(std::vector<glm::mat4> &mat4s);
 	VBO(GLfloat* vertices, GLsizeiptr size);
+	VBO(Vertex3* vertices, GLsizeiptr size);
 	GLuint getID();
 
 	void Load(std::vector<Vertex3>& vertices);

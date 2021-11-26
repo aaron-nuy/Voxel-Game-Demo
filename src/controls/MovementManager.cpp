@@ -1,10 +1,7 @@
 #include "MovementManager.h"
 
 char signof(float num) {
-	return pow(-1, signbit(num));
-}
-void print(std::string string, float number) {
-	std::cout << string + ": " << number << "." << std::endl;
+	return pow(-1, std::signbit(num));
 }
 glm::vec3 integrify(glm::vec3 vec) {
 	vec.x = (int)vec.x;
@@ -34,9 +31,7 @@ MovementManager::MovementManager(Player* player, ChunkManager* chunkManager, GLF
 	this->player = player;
 	this->window = window;
 	this->chunkManager = chunkManager;
-	this->cubeShader = Shader("resources/shaders/cube.vert", "resources/shaders/cube.frag");
-	std::vector<glm::mat4> Trans(1,glm::mat4(1.0));
-	this->cubeMesh = CubeMesh(&cubeShader, NULL, 1, Trans);
+	this->cubeMesh = new CubeMesh();
 }
 
 
@@ -185,6 +180,7 @@ void MovementManager::ManageMovement() {
 		isJumping = 1;
 		canJump = 0;
 	}
+
 	else if(glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE) {
 		canJump = 1;
 	}
@@ -238,46 +234,24 @@ void MovementManager::ManageMovement() {
 		ray += 0.01f * orien;
 		if (chunkManager->isInBoundaries(ray) && chunkManager->getBlock(ray) != c_Air) {
 			foundBlock = true;
-			glm::mat4 trans = glm::translate(glm::mat4(1.0f), integrify(ray));
-			std::vector<glm::mat4> T;
-			T.push_back(trans);
-			cubeMesh.passTransformMatrix(T,1);
-			cubeMesh.Draw(*player, window);
+			cubeMesh->passTransformMatrix(glm::translate(glm::mat4(1.0f), integrify(ray)));
+			cubeMesh->Draw(*player, window);
 		}
 		if (glm::length(ray - pos) > 128.0f) break;
 	}
 
 
-
 	if (canClick) {
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
-			orien = player->getOrientation();
-			pos = player->getPosition() + glm::vec3(0.5f, 0.5f, 0.5f);
-			ray = pos;
-			foundBlock = false;
-			while (!foundBlock) {
-				ray += 0.01f * orien;
-				if (chunkManager->isInBoundaries(ray) && chunkManager->getBlock(ray) != c_Air) {
-					foundBlock = true;
-					glm::vec3 placeAt = glm::vec3(ray - 0.01f * orien);
-					if (canPlaceBlock(chunkManager, pos, placeAt, playerHeight)) chunkManager->setBlock(placeAt, c_Stone);
-				}
-				if (glm::length(ray - pos) > 128.0f) break;
+			if(foundBlock) {
+				glm::vec3 placeAt = glm::vec3(ray - 0.01f * orien);
+				if (canPlaceBlock(chunkManager, pos, placeAt, playerHeight)) chunkManager->setBlock(placeAt, c_Stone);
 			}
 			canClick = false;
 		}
 		else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			orien = player->getOrientation();
-			pos = player->getPosition()+glm::vec3(0.5f,0.5f,0.5f);
-			ray = pos;
-			foundBlock = false;
-			while (!foundBlock) {
-				ray += 0.01f * orien;
-				if (chunkManager->isInBoundaries(ray) && chunkManager->getBlock(ray) != c_Air) {
-						foundBlock = true;
-						chunkManager->setBlock(ray, c_Air);
-				}
-				if (glm::length(ray - pos) > 128.0f) break;
+			if(foundBlock) {
+				chunkManager->setBlock(ray, c_Air);
 			}
 			canClick = false;
 		}
@@ -285,5 +259,6 @@ void MovementManager::ManageMovement() {
 	else if ((glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) && (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE)) {
 		canClick = true;
 	}
+
 	lastFrame = currentFrame;
 }

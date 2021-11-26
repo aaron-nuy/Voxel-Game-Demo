@@ -154,6 +154,8 @@ int main() {
 			player->UpdateMatrix(90.0f, (float)windowWidth / windowHeight, 0.01f, 1000.0f); // Updates projection matrix
 			chunkManager->Draw(*player, window);
 			crossHair->Draw((float)windowWidth / windowHeight);
+
+
 			//	Misc tasks
 			#pragma region MyRegion
 			// Refresh screen
