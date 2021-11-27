@@ -19,7 +19,7 @@ private:
 	float deltaTime = 0.0f;
 	float timePast = 0.0f;
 	float jumpTime = 0.0f;
-	float gConst = 1.0f;
+	float gConst = 9.81f;
 	float playerHeight = 1.15f;
 	float SpeedMult = 4.0f;
 	float Sensitivity = 10.0f;

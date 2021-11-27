@@ -8,7 +8,7 @@
 #include"abstractions/Polygone2D.h"
 
 int windowWidth = 720, windowHeight = 720;
-const float FPS = 60.0f;
+const float FPS = 60;
 float freq = 0.007f;
 float depth = 32.0f;
 const glm::vec3 skyColor = glm::vec3(0.90, 0.90f, 0.96f);

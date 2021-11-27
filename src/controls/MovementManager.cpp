@@ -146,7 +146,7 @@ void MovementManager::ManageMovement() {
 	pos = player->getPosition() + glm::vec3(0.5f, 0.5f, 0.5f);
 	ray = pos;
 	while (glm::length(ray - pos) < playerHeight) {
-		ray += 0.001f * glm::vec3(0.0f, 1.0f, 0.0f);
+		ray += 0.01f * glm::vec3(0.0f, 1.0f, 0.0f);
 		if (chunkManager->isInBoundaries(ray) && chunkManager->getBlock(ray) != c_Air) {
 			canJump = 0;
 			break;
@@ -159,21 +159,19 @@ void MovementManager::ManageMovement() {
 		ray -= 0.01f * glm::vec3(0.0f, 1.0f, 0.0f);
 		if (chunkManager->isInBoundaries(ray) && chunkManager->getBlock(ray) != c_Air) {
 			isFalling = 0;
-			fallingVelocity = 0;
 			isJumping = 0;
-			jumpingVelocity = 0;
-			jumpTime = 0;
 			timePast = 0;
+			jumpTime = 0;
+			fallingVelocity = 0;
+			jumpingVelocity = 0;
 			break;
 		}
 	}
 
 	if (isFalling) {
 		timePast += deltaTime;
-		fallingVelocity = -gConst * timePast * timePast;
-		if (fallingVelocity < -25.0f*deltaTime) {
-			fallingVelocity = -25.0f*deltaTime;
-		}		
+		fallingVelocity = -2*gConst * deltaTime * timePast;
+		if (fallingVelocity < -25 * deltaTime) fallingVelocity = -25 * deltaTime;
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !isFalling && !isJumping && canJump) {
@@ -186,24 +184,30 @@ void MovementManager::ManageMovement() {
 	}
 
 	if (isJumping) {
-		isFalling = 1;
+		isFalling = 0;
+		timePast = 0;
+		fallingVelocity = 0;
 		jumpTime += deltaTime;
-		jumpingVelocity = 2.0f*jumpTime;
-		if (jumpingVelocity > 5.0f * deltaTime) {
-			isJumping = 0;
-		}
+		//jumpingVelocity = (4-pow(gConst*jumpTime - sqrt(4),2)) * deltaTime;
+		jumpingVelocity =  -gConst * deltaTime*(2.0f*jumpTime - 0.8f);
+		if (jumpingVelocity < -25 * deltaTime) jumpingVelocity = -25 * deltaTime;
 	}
 
 	player->setPositionY(player->getPosition().y + jumpingVelocity + fallingVelocity);
+
+	std::cout << "Falling " << fallingVelocity << std::endl;
+	std::cout << "Jumping " << jumpingVelocity << std::endl<< std::endl;
+
 	pos = player->getPosition() + glm::vec3(0.5f, 0.5f, 0.5f);
 	ray = pos;
 	while (glm::length(ray - pos) < playerHeight) {
-		ray -= 0.001f * glm::vec3(0.0f, 1.0f, 0.0f);
+		ray -= 0.01f * glm::vec3(0.0f, 1.0f, 0.0f);
 		if (chunkManager->isInBoundaries(ray) && chunkManager->getBlock(ray) != c_Air) {
-			player->setPositionY(ray.y + playerHeight - 0.5f);
+			player->setPositionY((int)(ray.y) + playerHeight + +0.5f);
 			break;
 		}
 	}
+
 
 	//			Set cursor delta
 	xDelta = -Sensitivity * ((xpos - pxpos) / 100);
