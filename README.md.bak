@@ -19,6 +19,9 @@
  
 # TODO
  -Fix bug: surrounding chunks don't update when placing a block on edge of a chunk
+ 
+ 
+  -Fix bug: inconsistent physics with variable framerate
   
  
  -Organize code and add comments
