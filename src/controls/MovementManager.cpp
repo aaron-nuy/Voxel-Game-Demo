@@ -237,7 +237,7 @@ void MovementManager::ManageMovement() {
 			cubeMesh->passTransformMatrix(glm::translate(glm::mat4(1.0f), integrify(ray)));
 			cubeMesh->Draw(*player, window);
 		}
-		if (glm::length(ray - pos) > 128.0f) break;
+		if (glm::length(ray - pos) > 3.0f) break;
 	}
 
 

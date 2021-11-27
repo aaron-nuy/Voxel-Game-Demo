@@ -111,7 +111,10 @@ int main() {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
 	glFrontFace(GL_CCW);
+	glEnable(GL_LINE_SMOOTH);
 	#pragma endregion
+
+
 
 	double time = glfwGetTime();
 	std::string windowTitle;
@@ -149,11 +152,14 @@ int main() {
 				}
 				previousPlayerPosition.z = player->getPosition().z;
 			}
-			movementManager->ManageMovement();
+
 			// Update view and projection matrices
-			player->UpdateMatrix(90.0f, (float)windowWidth / windowHeight, 0.01f, 1000.0f); // Updates projection matrix
+			player->UpdateMatrix(90.0f, (float)windowWidth / windowHeight, 0.01f, 500.0f); // Updates projection matrix
 			chunkManager->Draw(*player, window);
 			crossHair->Draw((float)windowWidth / windowHeight);
+			// Movement
+			movementManager->ManageMovement();
+
 
 
 			//	Misc tasks
