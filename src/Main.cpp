@@ -5,7 +5,8 @@
 #include"meshes/CubeMesh.h"
 #include"world/ChunkManager.h"
 #include"controls/MovementManager.h"
-#include"abstractions/Polygone2D.h"
+#include"abstractions/Polygone.h"
+
 
 int windowWidth = 720, windowHeight = 720;
 const float FPS = 60;
@@ -80,10 +81,9 @@ int main() {
 	#pragma endregion
 	// Initializes shaders for needed objects
 	Shader* chunkShader = new Shader("resources/shaders/chunkshader.vert", "resources/shaders/chunkshader.frag");
-	Shader* crossShader = new Shader("resources/shaders/crosshair.vert", "resources/shaders/crosshair.frag");
+	Shader* polygoneShader = new Shader("resources/shaders/polygone.vert", "resources/shaders/polygone.frag");
 	// Creates a texture object
 	Texture* dirt = new Texture("resources/textures/block/tex.png", "diffuse", 0);
-	Texture* crosshairTexture = new Texture("resources/textures/block/cross.png", "diffuse", 1);
 	
 	// Lightbulb mesh and its parameters
 	glm::vec4 lightColor = glm::vec4(1.5f, 1.5f, 1.5f, 1.0f);
@@ -94,7 +94,7 @@ int main() {
 								 Chunk::_mChunkSizeY,
 								 chunkManager->getRenderDistance() * Chunk::_mChunkSize / 2)	);
 	MovementManager* movementManager = new MovementManager(player, chunkManager,window);
-	Polygone2D* crossHair = new Polygone2D(crosshairTexture, crossShader );
+	Polygone* crosshair = new Polygone(polygoneShader,0.003f,10);
 	// Passes uniforms to shaders
 	#pragma region MyRegion
 	// Activates shader and sets its world location with the cube color and position
@@ -156,11 +156,9 @@ int main() {
 			// Update view and projection matrices
 			player->UpdateMatrix(90.0f, (float)windowWidth / windowHeight, 0.01f, 500.0f); // Updates projection matrix
 			chunkManager->Draw(*player, window);
-			crossHair->Draw((float)windowWidth / windowHeight);
+			crosshair->Draw(glm::vec2(0.0f), (float)windowWidth / windowHeight);
 			// Movement
 			movementManager->ManageMovement();
-
-
 
 			//	Misc tasks
 			#pragma region MyRegion

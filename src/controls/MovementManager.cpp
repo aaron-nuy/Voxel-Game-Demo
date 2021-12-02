@@ -195,8 +195,6 @@ void MovementManager::ManageMovement() {
 
 	player->setPositionY(player->getPosition().y + jumpingVelocity + fallingVelocity);
 
-	std::cout << "Falling " << fallingVelocity << std::endl;
-	std::cout << "Jumping " << jumpingVelocity << std::endl<< std::endl;
 
 	pos = player->getPosition() + glm::vec3(0.5f, 0.5f, 0.5f);
 	ray = pos;
@@ -207,6 +205,7 @@ void MovementManager::ManageMovement() {
 			break;
 		}
 	}
+
 
 
 	//			Set cursor delta

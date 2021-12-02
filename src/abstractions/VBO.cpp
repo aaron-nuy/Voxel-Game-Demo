@@ -60,6 +60,11 @@ void VBO::Load(std::vector<Vertex3>& vertices) {
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex3), vertices.data(), GL_STATIC_DRAW);
 }
 
+void VBO::Load(std::vector<GLfloat>& vertices) {
+	glBindBuffer(GL_ARRAY_BUFFER, ID);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
+}
+
 void VBO::Load(GLfloat* vertices, GLsizeiptr size) {
 	glBindBuffer(GL_ARRAY_BUFFER, ID);
 	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);

@@ -30,6 +30,7 @@ public:
 	GLuint getID();
 
 	void Load(std::vector<Vertex3>& vertices);
+	void Load(std::vector<GLfloat>& vertices);
 	void Load(GLfloat* vertices, GLsizeiptr size);
 	void Bind();
 	void Unbind();

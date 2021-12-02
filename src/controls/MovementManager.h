@@ -11,7 +11,7 @@ private:
 	ChunkManager* chunkManager;
 	GLFWwindow* window;
 	CubeMesh* cubeMesh;
-	glm::vec3 orien,pos,ray,ray2,ray3;
+	glm::vec3 orien,pos,ray,ray2,ray3,ray4;
 	double xpos, ypos, pypos, pxpos, yDelta, xDelta;
 	double currentFrame, lastFrame = 0.0f;
 	float fallingVelocity = 0.0f;

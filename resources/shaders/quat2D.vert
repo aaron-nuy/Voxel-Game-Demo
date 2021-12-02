@@ -6,9 +6,14 @@ layout (location = 1) in vec2 texUV;
 
 out vec2 texCoord;
 
+uniform mat4 transform;
+uniform float aspectRatio;
+
+
 
 void main(){
 	texCoord = texUV;
 	// Outputs the positions/coordinates of all vertices
-	gl_Position =  vec4(aPos, 0.f, 1.0f);
+	gl_Position = transform*( int(aspectRatio>1)*vec4(aPos.x/aspectRatio, aPos.y, 0.1f, 1.0f)
+			    			+ int(aspectRatio<=1)*vec4(aPos.x, aPos.y*aspectRatio, 0.1f, 1.0f));
 }
