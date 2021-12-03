@@ -172,7 +172,7 @@ int main() {
 		// Update view and projection matrices
 		player->UpdateMatrix(90.0f, aspectRatio, 0.01f, 500.0f); // Updates projection matrix
 		chunkManager->Draw(*player, window);
-		 crosshair->Draw(vec4(1.0f, 1.0f, 0.0f, 1.0f), vec2(0.5f, 0.5f), time * 5, .05f, aspectRatio);
+		crosshair->Draw(vec4(1.0f, 1.0f, 0.0f, 1.0f), vec2(0.5f, 0.5f), 0, .05f, aspectRatio);
 		// Movement
 		movementManager->ManageMovement();
 

@@ -14,8 +14,13 @@ Polygone::Polygone(Shader* shader,GLfloat radius, GLfloat numberOfSides)
 	std::vector<GLfloat> vertices;
 	vertices.push_back(0.0f);
 	vertices.push_back(0.0f);
+	vertices.push_back(0.5f);
+	vertices.push_back(0.5f);
+
 	vertices.push_back(-radius*2.0f);
 	vertices.push_back(0.0f);
+	vertices.push_back(0.0f);
+	vertices.push_back(0.5f);
 
 
 
@@ -23,17 +28,25 @@ Polygone::Polygone(Shader* shader,GLfloat radius, GLfloat numberOfSides)
 
 	float previousX;
 	float previousY;
+	float previousTX;
+	float previousTY;
 	for (unsigned short i = 0; i < numberOfSides; i++) {
-		previousX = vertices[vertices.size() - 2];
-		previousY = vertices[vertices.size() - 1];
+		previousX = vertices[vertices.size() - 4];
+		previousY = vertices[vertices.size() - 3];
 		vertices.push_back( previousX * cos(Angle) - previousY * sin(Angle));
 		vertices.push_back( previousX * sin(Angle) + previousY * cos(Angle));
+
+		previousTX = vertices[vertices.size() - 4];
+		previousTY = vertices[vertices.size() - 3];
+		vertices.push_back(previousTX * cos(Angle) - previousTY * sin(Angle));
+		vertices.push_back(previousTX * sin(Angle) + previousTY * cos(Angle));
 	}
 
 	_mVAO.Bind();
 	_mVBO.Bind();
 	_mVBO.Load(vertices);
-	_mVAO.LinkAttrib(_mVBO, 0, 2, GL_FLOAT, sizeof(GLfloat)*2, (void*)0);
+	_mVAO.LinkAttrib(_mVBO, 0, 2, GL_FLOAT, sizeof(GLfloat)*4, (void*)0);
+	_mVAO.LinkAttrib(_mVBO, 1, 2, GL_FLOAT, sizeof(GLfloat)*4, (void*)(2*sizeof(GLfloat)));
 	_mVAO.Unbind();
 	_mVBO.Unbind();
 

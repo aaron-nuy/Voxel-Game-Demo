@@ -2,12 +2,14 @@
 
 // Positions/Coordinates
 layout (location = 0) in vec2 aPos;
+layout (location = 1) in vec2 texUV;
 uniform mat4 transform;
 uniform mat4 rotation;
 uniform float scale;
 uniform float aspectRatio;
 
 out vec4 aColor;
+out vec2 texUV;
 
 void main(){
 	
