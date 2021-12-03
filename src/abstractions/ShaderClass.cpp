@@ -61,13 +61,7 @@ GLuint Shader::GetUniID(const char* name) {
 	return glGetUniformLocation(ID, name);
 }
 
-void Shader::SetUniform(GLuint uniID, GLfloat value) {
-	glUniform1f(uniID, value);
-}
 
-void Shader::SetUniform(GLuint uniID, GLuint value) {
-	glUniform1ui(uniID, value);
-}
 
 void Shader::SetUniform(GLuint uniID,glm::mat4 value) {
 	glUniformMatrix4fv(uniID,1, GL_FALSE, glm::value_ptr(value));
@@ -77,14 +71,29 @@ void Shader::SetUniform(GLuint uniID, GLfloat v1, GLfloat v2, GLfloat v3) {
 	glUniform3f(uniID, v1, v2, v3);
 }
 
+void Shader::SetUniform(GLuint uniID, glm::vec3 vec3) {
+	glUniform3f(uniID, vec3.x, vec3.y, vec3.z);
+}
+
 void Shader::SetUniform(GLuint uniID, GLfloat v1, GLfloat v2, GLfloat v3, GLfloat v4){
 	glUniform4f(uniID, v1, v2, v3, v4);
+}
+
+void Shader::SetUniform(GLuint uniID, glm::vec4 vec4) {
+	glUniform4f(uniID, vec4.x, vec4.y, vec4.z, vec4.w);
 }
 
 void Shader::SetUniform(GLuint uniID, GLint value) {
 	glUniform1i(uniID, value);
 }
 
+void Shader::SetUniform(GLuint uniID, GLfloat value) {
+	glUniform1f(uniID, value);
+}
+
+void Shader::SetUniform(GLuint uniID, GLuint value) {
+	glUniform1ui(uniID, value);
+}
 
 
 void Shader::Activate()

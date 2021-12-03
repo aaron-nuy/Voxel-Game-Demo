@@ -20,11 +20,11 @@ public:
 	void Draw(Player& player, GLFWwindow* window);
 
 	bool isInBoundaries(glm::vec3 position);
-	unsigned char getBlock(glm::vec3 position);
+
 	void setBlock(glm::vec3 position, Block block);
 	unsigned char getRenderDistance();
 
-
+	unsigned char getBlock(glm::vec3 position);
 	glm::vec3 getCurrentChunk(glm::vec3 Pos);
 	glm::vec3 getPositionInChunk(glm::vec3 Pos);
 private:

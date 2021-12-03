@@ -7,13 +7,14 @@
 #include"controls/MovementManager.h"
 #include"abstractions/Polygone.h"
 
+#define LOG(x) std::cout << x << std::endl;
 
 int windowWidth = 720, windowHeight = 720;
-const float FPS = 60;
 float freq = 0.007f;
 float depth = 32.0f;
 const glm::vec3 skyColor = glm::vec3(0.90, 0.90f, 0.96f);
 const float loadRatio = ChunkManager::_mRenderingDistance * Chunk::_mChunkSize/4;
+bool isWindowed = 1;
 
 // Key callback for GLFW
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -22,6 +23,22 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 
 }
+
+void switchScreenMode(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_F && action == GLFW_PRESS) {
+		const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		if (isWindowed) {
+			glfwSetWindowMonitor(window, glfwGetPrimaryMonitor(),0,0,mode->width,mode->height,GLFW_DONT_CARE );
+			isWindowed = 0;
+		}
+		else {
+			glfwSetWindowMonitor(window, NULL, 100, 100, 540, 540, GLFW_DONT_CARE);
+			isWindowed = 1;
+		}
+	}
+}
+
 // Generating terrain function for secondary thread
 void generate(ChunkManager* chunkManager, Player* player, glm::vec3* previousPlayerPosition, float freq, float depth, GLFWwindow* window) {
 	// Change OpenGl context to current thread
@@ -94,7 +111,7 @@ int main() {
 								 Chunk::_mChunkSizeY,
 								 chunkManager->getRenderDistance() * Chunk::_mChunkSize / 2)	);
 	MovementManager* movementManager = new MovementManager(player, chunkManager,window);
-	Polygone* crosshair = new Polygone(polygoneShader,0.003f,10);
+	Polygone* crosshair = new Polygone(polygoneShader,0.1f,4);
 	// Passes uniforms to shaders
 	#pragma region MyRegion
 	// Activates shader and sets its world location with the cube color and position
@@ -115,64 +132,66 @@ int main() {
 	#pragma endregion
 
 
-
 	double time = glfwGetTime();
+	float aspectRatio = windowWidth / (float)windowHeight;
 	std::string windowTitle;
 	glm::vec3 previousPlayerPosition = player->getPosition();
 	while (!glfwWindowShouldClose(window) && !(glfwGetKey(window, GLFW_KEY_ESCAPE)==GLFW_PRESS)) {
-		if (glfwGetTime() - time >= 1/FPS) {
-			// Time and clears screen
-			#pragma region MyRegion
-			time = glfwGetTime();
-			glClearColor(skyColor.x, skyColor.y, skyColor.z, 1.0f);
-			glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-			#pragma endregion
-			// Generating terrain if player mmoves far enough
-			if (player->getPosition().x - previousPlayerPosition.x >= loadRatio) {
+		// Time and clears screen
+		#pragma region MyRegion
+		time = glfwGetTime();
+		glClearColor(skyColor.x, skyColor.y, skyColor.z, 1.0f);
+		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+		#pragma endregion
+		// Generating terrain if player mmoves far enough
+		if (player->getPosition().x - previousPlayerPosition.x >= loadRatio) {
 				for (int i = 0; i < ChunkManager::_mRenderingDistance / 4.0f; i++){
 					chunkManager->GenerateX(freq, depth);
 				}
 				previousPlayerPosition.x = player->getPosition().x;
 			}
-			else if (player->getPosition().x - previousPlayerPosition.x <= -loadRatio) {
+		else if (player->getPosition().x - previousPlayerPosition.x <= -loadRatio) {
 				for (int i = 0; i < ChunkManager::_mRenderingDistance / 4.0f; i++) {
 					chunkManager->GenerateMX(freq, depth);
 				}
 				previousPlayerPosition.x = player->getPosition().x;
 			}
-			if (player->getPosition().z - previousPlayerPosition.z >= loadRatio) {
+		if (player->getPosition().z - previousPlayerPosition.z >= loadRatio) {
 				for (int i = 0; i < ChunkManager::_mRenderingDistance / 4.0f; i++) {
 					chunkManager->GenerateZ(freq, depth);
 				}
 				previousPlayerPosition.z = player->getPosition().z;
 			}
-			else if (player->getPosition().z - previousPlayerPosition.z <= -loadRatio) {
+		else if (player->getPosition().z - previousPlayerPosition.z <= -loadRatio) {
 				for (int i = 0; i < ChunkManager::_mRenderingDistance / 4.0f; i++) {
 					chunkManager->GenerateMZ(freq, depth);
 				}
 				previousPlayerPosition.z = player->getPosition().z;
 			}
 
-			// Update view and projection matrices
-			player->UpdateMatrix(90.0f, (float)windowWidth / windowHeight, 0.01f, 500.0f); // Updates projection matrix
-			chunkManager->Draw(*player, window);
-			crosshair->Draw(glm::vec2(0.0f), (float)windowWidth / windowHeight);
-			// Movement
-			movementManager->ManageMovement();
+		// Update view and projection matrices
+		player->UpdateMatrix(90.0f, aspectRatio, 0.01f, 500.0f); // Updates projection matrix
+		chunkManager->Draw(*player, window);
+		 crosshair->Draw(vec4(1.0f, 1.0f, 0.0f, 1.0f), vec2(0.5f, 0.5f), time * 5, .05f, aspectRatio);
+		// Movement
+		movementManager->ManageMovement();
 
-			//	Misc tasks
-			#pragma region MyRegion
+
+		//	Misc tasks
+		#pragma region MyRegion
 			// Refresh screen
 			glfwSwapBuffers(window);
 			//	Handles window resizing and stuff
 			glfwGetWindowSize(window, &windowWidth, &windowHeight);
 			glViewport(0, 0, windowWidth, windowHeight);
+			aspectRatio = windowWidth / (float)windowHeight;
+			glfwSetKeyCallback(window, switchScreenMode);
+			glfwSwapInterval(1);
 			glfwPollEvents();
 			// Changes title
 			windowTitle = "Clone - X:" + std::to_string((int)player->getPosition().x) + " Y:" + std::to_string((int)player->getPosition().y) + " Z:" + std::to_string((int)player->getPosition().z);
 			glfwSetWindowTitle(window, windowTitle.c_str());
 			#pragma endregion
-		}
 	}
 
 	// Destroys windows and ends program
