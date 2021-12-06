@@ -242,6 +242,8 @@ void Chunk::checkFaces() {
 // Pushes mesh data to vao
 void Chunk::loadVertices() {
 	VAO.Bind();
+	VBO.Bind();
+	EBO.Bind();
 	VBO.Load(Vertices);
 	EBO.Load(Indices);
 	VAO.LinkAttrib(VBO, 0, 3, GL_FLOAT, sizeof(Vertex3), (void*)0);
@@ -283,8 +285,9 @@ void Chunk::generateTerrain(GLfloat freq, GLfloat depth, GLfloat xPos, GLfloat z
 // Deletes VBO/EBO/VAO to save gpu memory
 Chunk::~Chunk()
 {
+	VAO.Delete();
 	VBO.Delete();
 	EBO.Delete();
-	VAO.Delete();
+
 }
 

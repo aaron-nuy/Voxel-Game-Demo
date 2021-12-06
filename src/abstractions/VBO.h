@@ -19,7 +19,6 @@ struct  Vertex
 	glm::vec3 color;
 	glm::vec2 textCoord;
 };
-
 struct Vertex3 {
 	glm::vec3 position;
 	glm::vec3 normal;

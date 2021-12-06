@@ -10,8 +10,8 @@
 #define LOG(x) std::cout << x << std::endl;
 
 int windowWidth = 720, windowHeight = 720;
-float freq = 0.007f;
-float depth = 32.0f;
+float freq = 0.003f;
+float depth = 46.0f;
 const glm::vec3 skyColor = glm::vec3(0.90, 0.90f, 0.96f);
 const float loadRatio = ChunkManager::_mRenderingDistance * Chunk::_mChunkSize/4;
 bool isWindowed = 1;
@@ -101,6 +101,7 @@ int main() {
 	Shader* polygoneShader = new Shader("resources/shaders/polygone.vert", "resources/shaders/polygone.frag");
 	// Creates a texture object
 	Texture* dirt = new Texture("resources/textures/block/tex.png", "diffuse", 0);
+	Texture* godd = new Texture("resources/textures/block/see.png", "diffuse", 1);
 	
 	// Lightbulb mesh and its parameters
 	glm::vec4 lightColor = glm::vec4(1.5f, 1.5f, 1.5f, 1.0f);
@@ -108,10 +109,10 @@ int main() {
 	// Chunkmanager, Player, Movement Manager 
 	ChunkManager* chunkManager = new ChunkManager(chunkShader, dirt, freq, depth, 0.0f, 0.0f);
 	Player* player = new Player( glm::vec3(chunkManager->getRenderDistance() * Chunk::_mChunkSize / 2,
-								 Chunk::_mChunkSizeY,
+								 Chunk::_mChunkSizeY/4,
 								 chunkManager->getRenderDistance() * Chunk::_mChunkSize / 2)	);
 	MovementManager* movementManager = new MovementManager(player, chunkManager,window);
-	Polygone* crosshair = new Polygone(polygoneShader,0.1f,4);
+	Polygone* crosshair = new Polygone(polygoneShader,0.005f,4);
 	// Passes uniforms to shaders
 	#pragma region MyRegion
 	// Activates shader and sets its world location with the cube color and position
@@ -125,6 +126,7 @@ int main() {
 	// Enables depth testing so no clipping between textures
 	glEnable(GL_DEPTH_TEST);
 	// Enables faceculling so that non visible fragments don't get calculated
+	glEnable(GL_PROGRAM_POINT_SIZE);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
 	glFrontFace(GL_CCW);
@@ -172,7 +174,7 @@ int main() {
 		// Update view and projection matrices
 		player->UpdateMatrix(90.0f, aspectRatio, 0.01f, 500.0f); // Updates projection matrix
 		chunkManager->Draw(*player, window);
-		crosshair->Draw(vec4(1.0f, 1.0f, 0.0f, 1.0f), vec2(0.5f, 0.5f), 0, .05f, aspectRatio);
+		crosshair->Draw(vec4(1.0f, 1.0f, 0.0f, 1.0f), vec2(0.5f,0.5f), 0, 1.f, aspectRatio);
 		// Movement
 		movementManager->ManageMovement();
 

@@ -22,7 +22,7 @@ ChunkManager::ChunkManager(Shader* shader, Texture* text, GLfloat freq, GLfloat 
 }
 
 /*
-	Functions for loading new chunks in 4 directions
+	    Functions for loading new chunks in 4 directions
 		Deletes the last row chunk in opposite direction of generation 
 		Generates new row of chunks in desired direction
 		Pushes new row into chunkList

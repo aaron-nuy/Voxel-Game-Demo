@@ -1,7 +1,7 @@
 #version 330 core
 
 // Positions/Coordinates
-layout (location = 0) in vec3 aPos;
+layout (location = 0) in vec3 apos;
 layout (location = 1) in vec3 normals;
 layout (location = 2) in vec2 texUV;
 
@@ -20,7 +20,7 @@ uniform mat4 transform;
 void main()
 {	
 	// calculates current position
-	crntPos = vec3(transform*vec4(aPos, 1.0f));
+	crntPos = vec3(transform*vec4(apos, 1.0f));
 	// Assigns the normal from the Vertex Data to "Normal"
 	Normal = normals;
 	// Assigns the texture coordinates from the Vertex Data to "texCoord"

@@ -60,7 +60,7 @@ const std::vector<Vertex3> Top = {
 class Chunk {
 public:
 	static const int _mChunkSize = 16;
-	static const int _mChunkSizeY = 64;
+	static const int _mChunkSizeY = 255;
 	long posX = 0, posZ = 0;
 	unsigned char Blocks[_mChunkSize][_mChunkSizeY][_mChunkSize] = { 0 };
 	VAO VAO;

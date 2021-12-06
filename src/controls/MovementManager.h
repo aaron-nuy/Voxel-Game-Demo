@@ -35,6 +35,8 @@ private:
 	bool firstCall = 1;
 	bool canJump = 1;
 	bool canCrouch = 1;
+	bool canClickU = 1;
+	bool collision;
 public:
 	MovementManager(Player* player, ChunkManager* chunkManager, GLFWwindow* window);
 	void ManageMovement();
