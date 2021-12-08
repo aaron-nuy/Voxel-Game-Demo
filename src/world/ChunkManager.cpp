@@ -89,7 +89,7 @@ unsigned char ChunkManager::getBlock(glm::vec3 position)
 
 
 
-void ChunkManager::setBlock(glm::vec3 position, Block block)
+void ChunkManager::setBlock(glm::vec3 position, BlockID block)
 {
 	glm::vec3 PIC = getPositionInChunk(position);
 	glm::vec3 CC = getCurrentChunk(position);
@@ -163,17 +163,29 @@ void ChunkManager::manageChunk(int i, int j) {
 					if ((y == 0) || (chunkList[i][j]->Blocks[x][y - 1][z] == c_Air)) { // Checks Bottom Side 
 						Face = Bottom;
 						switch (chunkList[i][j]->Blocks[x][y][z]) {
-						case 2:
-							Face[0].texUVs = glm::vec2(0.5f, 0.0f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.0f);
-							Face[2].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[3].texUVs = glm::vec2(0.5f, 0.5f);
+						case c_Stone:
+							Face[0].texUVs += glm::vec2(-0.5,-0.25);
+							Face[1].texUVs += glm::vec2(-0.5,-0.25);
+							Face[2].texUVs += glm::vec2(-0.5,-0.25);
+							Face[3].texUVs += glm::vec2(-0.5, -0.25);
 							break;
-						case 3:
-							Face[0].texUVs = glm::vec2(0.5f, 0.5f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[2].texUVs = glm::vec2(1.0f, 1.0f);
-							Face[3].texUVs = glm::vec2(0.5f, 1.0f);
+						case c_Dirt:
+							Face[0].texUVs += glm::vec2(0, 0.0);
+							Face[1].texUVs += glm::vec2(0, 0.0);
+							Face[2].texUVs += glm::vec2(0, 0.0);
+							Face[3].texUVs += glm::vec2(0, 0.0);
+							break;
+						case c_Bedrock:
+							Face[0].texUVs += glm::vec2(-0.75, 0.0);
+							Face[1].texUVs += glm::vec2(-0.75, 0.0);
+							Face[2].texUVs += glm::vec2(-0.75, 0.0);
+							Face[3].texUVs += glm::vec2(-0.75, 0.0);
+							break;
+						case c_Sand:
+							Face[0].texUVs += glm::vec2(-0.75, -0.25);
+							Face[1].texUVs += glm::vec2(-0.75, -0.25);
+							Face[2].texUVs += glm::vec2(-0.75, -0.25);
+							Face[3].texUVs += glm::vec2(-0.75, -0.25);
 							break;
 						}
 						Face[0].position += glm::vec3(x, y, z);
@@ -198,17 +210,29 @@ void ChunkManager::manageChunk(int i, int j) {
 					if ((y == Chunk::_mChunkSizeY - 1) || (chunkList[i][j]->Blocks[x][y + 1][z] == c_Air)) { // Checks Top Side
 						Face = Top;
 						switch (chunkList[i][j]->Blocks[x][y][z]) {
-						case 2:
-							Face[0].texUVs = glm::vec2(0.5f, 0.0f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.0f);
-							Face[2].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[3].texUVs = glm::vec2(0.5f, 0.5f);
+						case c_Stone:
+							Face[0].texUVs += glm::vec2(0, -0.25);
+							Face[1].texUVs += glm::vec2(0, -0.25);
+							Face[2].texUVs += glm::vec2(0, -0.25);
+							Face[3].texUVs += glm::vec2(0, -0.25);
 							break;
-						case 3:
-							Face[0].texUVs = glm::vec2(0.5f, 0.5f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[2].texUVs = glm::vec2(1.0f, 1.0f);
-							Face[3].texUVs = glm::vec2(0.5f, 1.0f);
+						case c_Dirt:
+							Face[0].texUVs += glm::vec2(0.5f, 0.0f);
+							Face[1].texUVs += glm::vec2(0.5f, 0.0f);
+							Face[2].texUVs += glm::vec2(0.5f, 0.0f);
+							Face[3].texUVs += glm::vec2(0.5f, 0.0f);
+							break;
+						case c_Bedrock:
+							Face[0].texUVs += glm::vec2(-0.25f, 0.0f);
+							Face[1].texUVs += glm::vec2(-0.25f, 0.0f);
+							Face[2].texUVs += glm::vec2(-0.25f, 0.0f);
+							Face[3].texUVs += glm::vec2(-0.25f, 0.0f);
+							break;
+						case c_Sand:
+							Face[0].texUVs += glm::vec2(-0.25f, -0.25f);
+							Face[1].texUVs += glm::vec2(-0.25f, -0.25f);
+							Face[2].texUVs += glm::vec2(-0.25f, -0.25f);
+							Face[3].texUVs += glm::vec2(-0.25f, -0.25f);
 							break;
 						}
 						Face[0].position += glm::vec3(x, y, z);
@@ -233,17 +257,29 @@ void ChunkManager::manageChunk(int i, int j) {
 					if ((i == 0 && x == 0) || (x > 0 && chunkList[i][j]->Blocks[x - 1][y][z] == c_Air) || (x == 0 && chunkList[i - 1][j]->Blocks[Chunk::_mChunkSize - 1][y][z] == c_Air)) { // Checks Left Side
 						Face = Left;
 						switch (chunkList[i][j]->Blocks[x][y][z]) {
-						case 2:
-							Face[0].texUVs = glm::vec2(0.5f, 0.0f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.0f);
-							Face[2].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[3].texUVs = glm::vec2(0.5f, 0.5f);
+						case c_Stone:
+							Face[0].texUVs += glm::vec2(-0.25, -0.25);
+							Face[1].texUVs += glm::vec2(-0.25, -0.25);
+							Face[2].texUVs += glm::vec2(-0.25, -0.25);
+							Face[3].texUVs += glm::vec2(-0.25, -0.25);
 							break;
-						case 3:
-							Face[0].texUVs = glm::vec2(0.5f, 0.5f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[2].texUVs = glm::vec2(1.0f, 1.0f);
-							Face[3].texUVs = glm::vec2(0.5f, 1.0f);
+						case c_Dirt:
+							Face[0].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[1].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[2].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[3].texUVs += glm::vec2(0.25f, 0.0f);
+							break;
+						case c_Bedrock:
+							Face[0].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[1].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[2].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[3].texUVs += glm::vec2(-0.5f, 0.0f);
+							break;
+						case c_Sand:
+							Face[0].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[1].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[2].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[3].texUVs += glm::vec2(-0.5f, -0.25f);
 							break;
 						}
 						Face[0].position += glm::vec3(x, y, z);
@@ -268,17 +304,29 @@ void ChunkManager::manageChunk(int i, int j) {
 					if ((j == 0 && z == 0) || (z > 0 && chunkList[i][j]->Blocks[x][y][z - 1] == c_Air) || (z == 0 && chunkList[i][j - 1]->Blocks[x][y][Chunk::_mChunkSize - 1] == c_Air)) { // Checks Back Side
 						Face = Back;
 						switch (chunkList[i][j]->Blocks[x][y][z]) {
-						case 2:
-							Face[0].texUVs = glm::vec2(0.5f, 0.0f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.0f);
-							Face[2].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[3].texUVs = glm::vec2(0.5f, 0.5f);
+						case c_Stone:
+							Face[0].texUVs += glm::vec2(-0.25, -0.25);
+							Face[1].texUVs += glm::vec2(-0.25, -0.25);
+							Face[2].texUVs += glm::vec2(-0.25, -0.25);
+							Face[3].texUVs += glm::vec2(-0.25, -0.25);
 							break;
-						case 3:
-							Face[0].texUVs = glm::vec2(0.5f, 0.5f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[2].texUVs = glm::vec2(1.0f, 1.0f);
-							Face[3].texUVs = glm::vec2(0.5f, 1.0f);
+						case c_Dirt:
+							Face[0].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[1].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[2].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[3].texUVs += glm::vec2(0.25f, 0.0f);
+							break;
+						case c_Bedrock:
+							Face[0].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[1].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[2].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[3].texUVs += glm::vec2(-0.5f, 0.0f);
+							break;
+						case c_Sand:
+							Face[0].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[1].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[2].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[3].texUVs += glm::vec2(-0.5f, -0.25f);
 							break;
 						}
 						Face[0].position += glm::vec3(x, y, z);
@@ -303,17 +351,29 @@ void ChunkManager::manageChunk(int i, int j) {
 					if ((i == _mRenderingDistance - 1 && x == Chunk::_mChunkSize - 1) || (x < Chunk::_mChunkSize - 1 && chunkList[i][j]->Blocks[x + 1][y][z] == c_Air) || (x == Chunk::_mChunkSize - 1 && chunkList[i + 1][j]->Blocks[0][y][z] == c_Air)) { // Checks Right Side
 						Face = Right;
 						switch (chunkList[i][j]->Blocks[x][y][z]) {
-						case 2:
-							Face[0].texUVs = glm::vec2(0.5f, 0.0f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.0f);
-							Face[2].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[3].texUVs = glm::vec2(0.5f, 0.5f);
+						case c_Stone:
+							Face[0].texUVs += glm::vec2(-0.25, -0.25);
+							Face[1].texUVs += glm::vec2(-0.25, -0.25);
+							Face[2].texUVs += glm::vec2(-0.25, -0.25);
+							Face[3].texUVs += glm::vec2(-0.25, -0.25);
 							break;
-						case 3:
-							Face[0].texUVs = glm::vec2(0.5f, 0.5f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[2].texUVs = glm::vec2(1.0f, 1.0f);
-							Face[3].texUVs = glm::vec2(0.5f, 1.0f);
+						case c_Dirt:
+							Face[0].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[1].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[2].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[3].texUVs += glm::vec2(0.25f, 0.0f);
+							break;
+						case c_Bedrock:
+							Face[0].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[1].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[2].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[3].texUVs += glm::vec2(-0.5f, 0.0f);
+							break;
+						case c_Sand:
+							Face[0].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[1].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[2].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[3].texUVs += glm::vec2(-0.5f, -0.25f);
 							break;
 						}
 						Face[0].position += glm::vec3(x, y, z);
@@ -339,16 +399,28 @@ void ChunkManager::manageChunk(int i, int j) {
 						Face = Front;
 						switch (chunkList[i][j]->Blocks[x][y][z]) {
 						case c_Stone:
-							Face[0].texUVs = glm::vec2(0.5f, 0.0f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.0f);
-							Face[2].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[3].texUVs = glm::vec2(0.5f, 0.5f);
+							Face[0].texUVs += glm::vec2(-0.25, -0.25);
+							Face[1].texUVs += glm::vec2(-0.25, -0.25);
+							Face[2].texUVs += glm::vec2(-0.25, -0.25);
+							Face[3].texUVs += glm::vec2(-0.25, -0.25);
 							break;
 						case c_Dirt:
-							Face[0].texUVs = glm::vec2(0.5f, 0.5f);
-							Face[1].texUVs = glm::vec2(1.0f, 0.5f);
-							Face[2].texUVs = glm::vec2(1.0f, 1.0f);
-							Face[3].texUVs = glm::vec2(0.5f, 1.0f);
+							Face[0].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[1].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[2].texUVs += glm::vec2(0.25f, 0.0f);
+							Face[3].texUVs += glm::vec2(0.25f, 0.0f);
+							break;
+						case c_Bedrock:
+							Face[0].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[1].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[2].texUVs += glm::vec2(-0.5f, 0.0f);
+							Face[3].texUVs += glm::vec2(-0.5f, 0.0f);
+							break;
+						case c_Sand:
+							Face[0].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[1].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[2].texUVs += glm::vec2(-0.5f, -0.25f);
+							Face[3].texUVs += glm::vec2(-0.5f, -0.25f);
 							break;
 						}
 						Face[0].position += glm::vec3(x, y, z);

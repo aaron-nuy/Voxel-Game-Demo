@@ -266,16 +266,26 @@ void Chunk::generateTerrain(GLfloat freq, GLfloat depth, GLfloat xPos, GLfloat z
 			zP = z + zPos;
 			height = glm::simplex(glm::vec2(xP * freq, zP * freq));		
 			height = ((height + 1) / 2.0f) * (depth*2);
-			height += glm::perlin(glm::vec2(xP *10000-963, zP *10000-142))*70;
+			height += ((glm::perlin(glm::vec2(xP *0.0303, zP*0.043 )) + 1)/1.7f)*2.86f;
+			height = height + ((glm::perlin(glm::vec2(xP *0.023, zP*0.028 )) + 1)/2.1f)*depth/1.9;
+			height = height / 2.0;
+
 			if (height >= _mChunkSizeY || isnan(height)) {
 				height = _mChunkSizeY - 1;
 			}
-			Blocks[x][(int)height][z] = c_Grass;
-			for (unsigned char y = 0; y < std::max(2.5f,height/3); y++) {
-				Blocks[x][y][z] = c_Stone;
+			else if (height < 0) {
+				height = 0;
 			}
-			for (unsigned char y = std::max(2.5f, height / 3); y < height-1; y++) {
+
+			Blocks[x][(int)height][z] = c_Grass;
+			for (unsigned char y = 0; y < std::max(2.5f, height / 4); y++) {
+				Blocks[x][y][z] = c_Bedrock;
+			}
+			for (unsigned char y = std::max(2.5f, height / 3); y < height - 1; y++) {
 				Blocks[x][y][z] = c_Dirt;
+			}
+			for (unsigned char y = std::max(2.5f, height / 4); y < std::max(2.5f, height / 3); y++) {
+				Blocks[x][y][z] = c_Stone;
 			}
 		}
 	}

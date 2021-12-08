@@ -20,6 +20,13 @@ struct  Vertex
 	glm::vec2 textCoord;
 };
 struct Vertex3 {
+	
+	Vertex3(glm::vec3 pos, glm::vec3 nor, glm::vec2 texU) {
+		position = pos;
+		normal = nor;
+		texUVs = texU;
+	}
+
 	glm::vec3 position;
 	glm::vec3 normal;
 	glm::vec2 texUVs;

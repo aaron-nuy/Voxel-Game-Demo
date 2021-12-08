@@ -273,7 +273,7 @@ void MovementManager::ManageMovement() {
 	else {
 
 		if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-			speed *= 2.5f;
+			speed *= 10.f;
 			player->setSpeed(speed);
 		}
 		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {

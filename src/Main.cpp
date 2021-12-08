@@ -10,8 +10,8 @@
 #define LOG(x) std::cout << x << std::endl;
 
 int windowWidth = 720, windowHeight = 720;
-float freq = 0.003f;
-float depth = 46.0f;
+float freq = 0.00824f;
+float depth = 64.0f;
 const glm::vec3 skyColor = glm::vec3(0.90, 0.90f, 0.96f);
 const float loadRatio = ChunkManager::_mRenderingDistance * Chunk::_mChunkSize/4;
 bool isWindowed = 1;
@@ -100,8 +100,7 @@ int main() {
 	Shader* chunkShader = new Shader("resources/shaders/chunkshader.vert", "resources/shaders/chunkshader.frag");
 	Shader* polygoneShader = new Shader("resources/shaders/polygone.vert", "resources/shaders/polygone.frag");
 	// Creates a texture object
-	Texture* dirt = new Texture("resources/textures/block/tex.png", "diffuse", 0);
-	Texture* godd = new Texture("resources/textures/block/see.png", "diffuse", 1);
+	Texture* dirt = new Texture("resources/textures/block/atlas.png", "diffuse", 0);
 	
 	// Lightbulb mesh and its parameters
 	glm::vec4 lightColor = glm::vec4(1.5f, 1.5f, 1.5f, 1.0f);

@@ -15,7 +15,6 @@ Texture::Texture(const char* image, const char* texType, GLuint slot)
 	stbi_set_flip_vertically_on_load(true);
 	// Reads the image from a file and stores it in bytes
 	unsigned char* bytes = stbi_load(image, &widthImg, &heightImg, &numColCh, 0);
-
 	// Generates an OpenGL texture object
 	glGenTextures(1, &ID);
 	// Assigns the texture to a Texture Unit
@@ -29,7 +28,6 @@ Texture::Texture(const char* image, const char* texType, GLuint slot)
 	// Configures the way the texture repeats (if it does at all)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
 	// Check what type of color channels the texture has and load it accordingly
 	switch (numColCh) {
 	case 4:
@@ -45,7 +43,7 @@ Texture::Texture(const char* image, const char* texType, GLuint slot)
 		throw std::invalid_argument("Automatic Texture type recognition failed");
 		break;
 	}
-
+	
 	// Generates MipMaps
 	glGenerateMipmap(GL_TEXTURE_2D);
 

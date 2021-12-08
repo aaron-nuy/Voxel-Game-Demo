@@ -9,51 +9,54 @@
 #include"../controls/Player.h"
 
 
-enum Block {
+enum BlockID {
 	c_Air = 0,
 	c_Grass,
 	c_Stone,
-	c_Dirt
+	c_Dirt,
+	c_Bedrock,
+	c_Sand
 };
+
 
 
 // Vertices for different block faces
 const std::vector<Vertex3> Bottom = {
-	Vertex3{glm::vec3(-0.5f,-0.5f, 0.5f), glm::vec3(0.0f,-1.0f, 0.0f), glm::vec2(0.5f, 0.5f)},		//0 
-	Vertex3{glm::vec3(0.5f,-0.5f, 0.5f), glm::vec3(0.0f,-1.0f, 0.0f),  glm::vec2(1.0f, 0.5f)},		//1 
-	Vertex3{glm::vec3(0.5f,-0.5f,-0.5f), glm::vec3(0.0f,-1.0f, 0.0f),  glm::vec2(1.0f, 1.0f)},		//2  Bottom
-	Vertex3{glm::vec3(-0.5f,-0.5f,-0.5f), glm::vec3(0.0f,-1.0f, 0.0f), glm::vec2(0.5f, 1.0f)},		//3 
+	Vertex3{glm::vec3(-0.5f,-0.5f, 0.5f), glm::vec3(0.0f,-1.0f, 0.0f), glm::vec2(1.f, 1.f)},		//0 
+	Vertex3{glm::vec3(0.5f,-0.5f, 0.5f), glm::vec3(0.0f,-1.0f, 0.0f),  glm::vec2(0.75f, 1.f)},		//1 
+	Vertex3{glm::vec3(0.5f,-0.5f,-0.5f), glm::vec3(0.0f,-1.0f, 0.0f),  glm::vec2(0.75f, 0.75f)},		//2  Bottom
+	Vertex3{glm::vec3(-0.5f,-0.5f,-0.5f), glm::vec3(0.0f,-1.0f, 0.0f), glm::vec2(1.f, .75f)},		//3 
 };
 const std::vector<Vertex3> Left = {
-	Vertex3{glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.5f)},		//0 Left
-	Vertex3{glm::vec3(-0.5f,-0.5f, 0.5f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f)},		//1
-	Vertex3{glm::vec3(-0.5f,-0.5f,-0.5f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(0.5f, 0.0f)},		//2
-	Vertex3{glm::vec3(-0.5f, 0.5f,-0.5f), glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec2(0.5f, 0.5f)},		//3
+	Vertex3{glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.5f, 1.0f)}, 		//0 Left
+	Vertex3{glm::vec3(-0.5f,-0.5f, 0.5f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.5f, 0.75f)},		//1
+	Vertex3{glm::vec3(-0.5f,-0.5f,-0.5f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.75f, 0.75f)},		//2
+	Vertex3{glm::vec3(-0.5f, 0.5f,-0.5f), glm::vec3(-1.0f, 0.0f, 0.0f),   glm::vec2(0.75f, 1.f)},			//3
 };
 const std::vector<Vertex3> Back = {
-	Vertex3{glm::vec3(-0.5f,-0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f),  glm::vec2(0.5f, 0.0f)},		//0
-	Vertex3{glm::vec3(0.5f,-0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f),   glm::vec2(0.0f, 0.0f)},		//1
-	Vertex3{glm::vec3(0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f),   glm::vec2(0.0f, 0.5f)},		//2 Back
-	Vertex3{glm::vec3(-0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f),  glm::vec2(0.5f, 0.5f)},		//3
+	Vertex3{glm::vec3(-0.5f,-0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f),    glm::vec2(0.75f, 0.75f)}, 			//0
+	Vertex3{glm::vec3(0.5f,-0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f),     glm::vec2(0.5f, 0.75f)},			//1
+	Vertex3{glm::vec3(0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f),     glm::vec2(0.5f, 1.f)},			//2 Back
+	Vertex3{glm::vec3(-0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 0.0f,-1.0f),    glm::vec2(0.75f, 1.f)},				//3
 };
 const std::vector<Vertex3> Right = {
-	Vertex3{glm::vec3(0.5f, 0.5f,-0.5f), glm::vec3(1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.5f)},		//0
-	Vertex3{glm::vec3(0.5f,-0.5f,-0.5f), glm::vec3(1.0f, 0.0f, 0.0f),   glm::vec2(0.0f, 0.0f)},		//1
-	Vertex3{glm::vec3(0.5f,-0.5f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f),   glm::vec2(0.5f, 0.0f)},		//2
-	Vertex3{glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f),   glm::vec2(0.5f, 0.5f)},		//3 Right
+	Vertex3{glm::vec3(0.5f, 0.5f,-0.5f), glm::vec3(1.0f, 0.0f, 0.0f),     glm::vec2(0.75f, 1.0f)}, 			//0
+	Vertex3{glm::vec3(0.5f,-0.5f,-0.5f), glm::vec3(1.0f, 0.0f, 0.0f),     glm::vec2(0.75f, 0.75f)},			//1
+	Vertex3{glm::vec3(0.5f,-0.5f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f),     glm::vec2(0.5f, 0.75f)},			//2
+	Vertex3{glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(1.0f, 0.0f, 0.0f),     glm::vec2(0.5f, 1.f)},				//3 Right
 
 };
 const std::vector<Vertex3> Front = {
-Vertex3{glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f),       glm::vec2(0.0f, 0.5f)}, 	   //0				  																										  
-Vertex3{glm::vec3(0.5f,-0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f),       glm::vec2(0.0f, 0.0f)},		//1
-Vertex3{glm::vec3(-0.5f,-0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f),      glm::vec2(0.5f, 0.0f)},		//2
-Vertex3{glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f),      glm::vec2(0.5f, 0.5f)},		//3 Front
+	Vertex3{glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f),       glm::vec2(0.75f, 1.0f)}, 	   //0				  																										  
+	Vertex3{glm::vec3(0.5f,-0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f),       glm::vec2(0.75f, 0.75f)},		//1
+	Vertex3{glm::vec3(-0.5f,-0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f),      glm::vec2(0.5f, 0.75f)},		//2
+	Vertex3{glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 0.0f, 1.0f),      glm::vec2(0.5f, 1.f)},		//3 Front
 };
 const std::vector<Vertex3> Top = {
-	Vertex3{glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 1.0f)},		//0 Top
-	Vertex3{glm::vec3(-0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.0f, 0.5f)},		//1
-	Vertex3{glm::vec3(0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 1.0f, 0.0f),  glm::vec2(0.5f, 0.5f)},		//2
-	Vertex3{glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f),  glm::vec2(0.5f, 1.0f)}		//3
+	Vertex3{glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.25f, 0.75f)},		//0 Top
+	Vertex3{glm::vec3(-0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(0.25f, 1.f)},		//1
+	Vertex3{glm::vec3(0.5f, 0.5f,-0.5f), glm::vec3(0.0f, 1.0f, 0.0f),  glm::vec2(0.5f, 1.f)},		//2
+	Vertex3{glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.0f, 1.0f, 0.0f),  glm::vec2(0.5f, 0.75f)}		//3
 };
 
 

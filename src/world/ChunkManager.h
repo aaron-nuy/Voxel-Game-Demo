@@ -21,7 +21,7 @@ public:
 
 	bool isInBoundaries(glm::vec3 position);
 
-	void setBlock(glm::vec3 position, Block block);
+	void setBlock(glm::vec3 position, BlockID block);
 	unsigned char getRenderDistance();
 
 	unsigned char getBlock(glm::vec3 position);
