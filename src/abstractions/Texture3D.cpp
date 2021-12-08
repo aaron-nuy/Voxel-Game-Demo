@@ -1,6 +1,8 @@
 #include"Texture3D.h"
 
-Texture3D::Texture3D() {};
+Texture3D::Texture3D(const std::string* mapSides) {
+	loadTexture3D(mapSides);
+};
 
 void Texture3D::loadTexture3D(const std::string* mapSides)
 {
@@ -77,10 +79,10 @@ void Texture3D::setType(const char* type)
 }
 
 void Texture3D::Assign(Shader& shader, const char* uniform) {
-	// Gets the location of the uniform
-	GLuint texUni = glGetUniformLocation(shader.getID(), uniform);
 	// Shader needs to be activated before changing the value of a uniform
 	shader.Activate();
+	// Gets the location of the uniform
+	GLuint texUni = glGetUniformLocation(shader.getID(), uniform);
 	// Sets the value of the uniform
 	glUniform1i(texUni, 0);
 }

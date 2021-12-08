@@ -85,8 +85,8 @@ float linearizeDepth(float depth){
 	return (2.0*near*far) / (far + near - (depth * 2.0 - 1.0) * (far -near));
 }
 float logisticDepth(float depth){
-	float steepness = 0.05f;
-	float offset = 48.0f;
+	float steepness = 0.06f;
+	float offset = 66.0f;
 	float zVal = linearizeDepth(depth);
 	return (1/ (1+exp(-steepness * (zVal - offset ))));
 }

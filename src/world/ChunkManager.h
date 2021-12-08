@@ -6,7 +6,7 @@ class ChunkManager
 {
 
 public:
-	static const unsigned char _mRenderingDistance = 16;
+	static const unsigned char _mRenderingDistance = 4;
 	std::vector<std::vector<std::shared_ptr<Chunk>>> chunkList;
 
 	ChunkManager(Shader* shader, Texture* text, GLfloat freq, GLfloat depth, GLfloat xPos, GLfloat zPos);

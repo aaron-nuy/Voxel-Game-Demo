@@ -243,7 +243,7 @@ void MovementManager::ManageMovement() {
 			ray += 0.01f * orien;
 			if (chunkManager->isInBoundaries(ray) && chunkManager->getBlock(ray) != c_Air) {
 				foundBlock = true;
-				cubeMesh->passTransformMatrix(glm::translate(glm::mat4(1.0f), integrify(ray)));
+				cubeMesh->passTransformMatrix(glm::translate(glm::mat4(1.0f), floorify(ray)));
 				cubeMesh->Draw(*player, window);
 			}
 			if (glm::length(ray - pos) > 3.0f) break;

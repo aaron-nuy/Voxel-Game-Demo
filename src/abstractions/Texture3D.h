@@ -7,7 +7,7 @@ class Texture3D
 {
 public:
 	Texture3D();
-
+	Texture3D(const std::string* mapSides);
 	void loadTexture3D(const std::string* mapSides);
 	// Assigns
 	void Assign(Shader& shader, const char* uniform);

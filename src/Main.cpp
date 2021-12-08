@@ -6,13 +6,14 @@
 #include"world/ChunkManager.h"
 #include"controls/MovementManager.h"
 #include"abstractions/Polygone.h"
+#include"abstractions/Texture3D.h"
 
 #define LOG(x) std::cout << x << std::endl;
 
 int windowWidth = 720, windowHeight = 720;
 float freq = 0.00824f;
 float depth = 64.0f;
-const glm::vec3 skyColor = glm::vec3(0.90, 0.90f, 0.96f);
+const glm::vec3 skyColor = glm::vec3(3*0.221, 3*0.268, 3*0.298);
 const float loadRatio = ChunkManager::_mRenderingDistance * Chunk::_mChunkSize/4;
 bool isWindowed = 1;
 
@@ -74,7 +75,17 @@ void generate(ChunkManager* chunkManager, Player* player, glm::vec3* previousPla
 }
 
 
+
+
 int main() {
+	std::string skyboxFaces[6] = {
+	"resources/textures/sky/right.jpg",
+	"resources/textures/sky/left.jpg",
+	"resources/textures/sky/top.jpg",
+	"resources/textures/sky/bottom.jpg",
+	"resources/textures/sky/front.jpg",
+	"resources/textures/sky/back.jpg"
+	};
 	// Sets default settings and initializes window
 	#pragma region MyRegion
 	// Initialize GLFW
@@ -99,8 +110,11 @@ int main() {
 	// Initializes shaders for needed objects
 	Shader* chunkShader = new Shader("resources/shaders/chunkshader.vert", "resources/shaders/chunkshader.frag");
 	Shader* polygoneShader = new Shader("resources/shaders/polygone.vert", "resources/shaders/polygone.frag");
+	Shader* skyboxShader = new Shader("resources/shaders/skybox.vert", "resources/shaders/skybox.frag");
 	// Creates a texture object
 	Texture* dirt = new Texture("resources/textures/block/atlas.png", "diffuse", 0);
+	Texture3D* skyboxTexture = new Texture3D(skyboxFaces);
+	CubeMesh* skybox = new CubeMesh(skyboxTexture,skyboxShader);
 	
 	// Lightbulb mesh and its parameters
 	glm::vec4 lightColor = glm::vec4(1.5f, 1.5f, 1.5f, 1.0f);
@@ -119,6 +133,8 @@ int main() {
 	chunkShader->SetUniform(chunkShader->GetUniID("skyColor"), skyColor.x, skyColor.y, skyColor.z);
 	chunkShader->SetUniform(chunkShader->GetUniID("lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	chunkShader->SetUniform(chunkShader->GetUniID("lightPos"), lightPos.x, lightPos.y, lightPos.z);
+	skyboxShader->Activate();
+	skyboxShader->SetUniform(skyboxShader->GetUniID("skyColor"), skyColor.x, skyColor.y, skyColor.z);
 	#pragma endregion
 	// OpenGl settings
 	#pragma region MyRegion
@@ -171,12 +187,13 @@ int main() {
 			}
 
 		// Update view and projection matrices
-		player->UpdateMatrix(90.0f, aspectRatio, 0.01f, 500.0f); // Updates projection matrix
+		player->UpdateMatrix(70.0f, aspectRatio, 0.01f, 500.0f); // Updates projection matrix
 		chunkManager->Draw(*player, window);
 		crosshair->Draw(vec4(1.0f, 1.0f, 0.0f, 1.0f), vec2(0.5f,0.5f), 0, 1.f, aspectRatio);
 		// Movement
 		movementManager->ManageMovement();
-
+		// skybox
+		skybox->Draw(*player,window, aspectRatio);
 
 		//	Misc tasks
 		#pragma region MyRegion
