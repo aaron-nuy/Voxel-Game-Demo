@@ -10,7 +10,7 @@
  As of 29/12/2021 I don't believe that I'll ever continue to work on this in the future, though there is a lot of work that still needs to be done
    
    
- The visual studio (2022) solution file is included
+ Solution file for VS22 is included
  
  Downlod Pre-compiled binaries (executable) [Here](https://github.com/aaron-nuy/Voxel-Game-Demo/releases/tag/v0.3.0_Alpha).
  
