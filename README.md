@@ -2,6 +2,7 @@
 
 # Voxel-Game-Demo
  A Minecraft like game with basic rendering, movement, block placement.. All made from scratch
+ The code is terribly messy and many optimizations need to be done. This project was just a challenge I made for myself while also to learn graphics programminng on the side
  
  Downlod Pre-compiled binaries (executable) [Here](https://github.com/aaron-nuy/Voxel-Game-Demo/releases/tag/v0.1.0-alpha).
  
@@ -9,16 +10,13 @@
  
 # Build Instructions
  ### Windows
-  Need to have CMake 3.10 installed and C++17 support<br/>
-  Run build.bat and after it finishes binaries will be found in build/bin/Release and Visual Studio solution is two levels higher
-  
-  
- ### Linux
-  Maybe some other day, but should be simple enough. Build GLFW for Linux, replace the included GLFW with the newly built one, run CMake with CMakeLists.txt 
- 
+  ~~Need to have CMake 3.10 installed and C++17 support<br/>
+  Run build.bat and after it finishes binaries will be found in build/bin/Release and Visual Studio solution is two levels higher~~
+  Build file doesn't work with latest version. Needs to be updated
+
  
 # TODO
- -Fix bug: surrounding chunks don't update when placing a block on edge of a chunk
+ -Add feature: surrounding chunks don't update when placing a block on edge of a chunk
   
  
  -Organize code and add comments
