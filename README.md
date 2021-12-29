@@ -1,20 +1,38 @@
 ![alt text](https://i.imgur.com/XNCulVE.png)
 
 # Voxel-Game-Demo
- A Minecraft like game with basic rendering, movement, block placement.. All made from scratch
- The code is terribly messy and many optimizations need to be done.  
+ A Minecraft like game with basic rendering, movement, block placement.. All made from scratch  
+ The code is a disastrous mess and is anything but elegant, yet it works well enough and isn't terribly unreadable
    
- This project was just a challenge I made for myself while also to learn graphics programminng on the side
+ This project was just a challenge I made for myself while also a way to learn graphics programminng on the side, so manage expectation..
    
      
  As of 29/12/2021 I don't believe I'll ever continue working on this in the future, though there is a lot of work that still needs to be done
    
    
- The visual studio (2022) solition file is also included
+ The visual studio (2022) solution file is included
  
  Downlod Pre-compiled binaries (executable) [Here](https://github.com/aaron-nuy/Voxel-Game-Demo/releases/tag/v0.3.0_Alpha).
  
  Block textures can be changed by directly editing the texture atlas located in resources\textures\block, the size of the final texture atlas doesn't matter as long as it's a square with a length that is a power of 2.
+ 
+ 
+# Controls  
+ Toggle Collision : U
+ Toggle Fullscreen : F
+ ## Normal Mode
+  Movemnt : ZQSD
+  Jump : Space
+  Shift : Sprint
+  Place Block : Left Mouse
+  Destroy Block : Right Mouse
+ ## Freecam Mode
+  Movemnt : ZQSD
+  Fly Up : Space
+  Fly Down : Control
+  Speed Up : Shift
+  
+ 
  
 # Build Instructions
  ### Windows
