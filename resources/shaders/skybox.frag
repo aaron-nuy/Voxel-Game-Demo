@@ -2,7 +2,7 @@
 
 out vec4 FragColor;
 
-in vec3 texCoords;
+in vec4 texCoords;
 uniform samplerCube skybox;
 uniform vec3 skyColor;
 
@@ -23,5 +23,5 @@ void main()
 {
 	
 	float depth = 1-logisticDepth(gl_FragCoord.z);
-	FragColor = texture(skybox,texCoords)*depth + vec4(logisticDepth(gl_FragCoord.z) * skyColor,1.0);
+	FragColor = texture(skybox,texCoords.xyz)*depth + vec4(logisticDepth(gl_FragCoord.z) * skyColor,1.0);
 }

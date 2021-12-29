@@ -160,6 +160,7 @@ int main() {
 		glClearColor(skyColor.x, skyColor.y, skyColor.z, 1.0f);
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		#pragma endregion
+		movementManager->ManageMovement();
 		// Generating terrain if player mmoves far enough
 		if (player->getPosition().x - previousPlayerPosition.x >= loadRatio) {
 				for (int i = 0; i < ChunkManager::_mRenderingDistance / 4.0f; i++){
@@ -185,13 +186,12 @@ int main() {
 				}
 				previousPlayerPosition.z = player->getPosition().z;
 			}
-
 		// Update view and projection matrices
 		player->UpdateMatrix(70.0f, aspectRatio, 0.01f, 500.0f); // Updates projection matrix
 		chunkManager->Draw(*player, window);
 		crosshair->Draw(vec4(1.0f, 1.0f, 0.0f, 1.0f), vec2(0.5f,0.5f), 0, 1.f, aspectRatio);
 		// Movement
-		movementManager->ManageMovement();
+		
 		// skybox
 		skybox->Draw(*player,window, aspectRatio);
 
