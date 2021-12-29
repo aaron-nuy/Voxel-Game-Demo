@@ -42,7 +42,7 @@
 
  
 # TODO
- -Add feature: surrounding chunks don't update when placing a block on the edge of a chunk
+ -Add feature: surrounding chunks must update when placing/destroying a block on the edge of a chunk
   
  
  -Organize code and add comments
