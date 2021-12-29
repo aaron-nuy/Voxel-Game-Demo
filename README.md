@@ -7,7 +7,7 @@
  This project was just a challenge I made for myself while also a way to learn graphics programminng on the side, so manage expectation..
    
      
- As of 29/12/2021 I don't believe I'll ever continue working on this in the future, though there is a lot of work that still needs to be done
+ As of 29/12/2021 I don't believe that I'll ever continue to work on this in the future, though there is a lot of work that still needs to be done
    
    
  The visual studio (2022) solution file is included
@@ -38,11 +38,11 @@
  ### Windows
   ~~Need to have CMake 3.10 installed and C++17 support<br/>
   Run build.bat and after it finishes binaries will be found in build/bin/Release and Visual Studio solution is two levels higher~~  
-  Build file doesn't work with latest version. Needs to be updated
+  Build file doesn't work with the latest version. Needs to be updated
 
  
 # TODO
- -Add feature: surrounding chunks don't update when placing a block on edge of a chunk
+ -Add feature: surrounding chunks don't update when placing a block on the edge of a chunk
   
  
  -Organize code and add comments
