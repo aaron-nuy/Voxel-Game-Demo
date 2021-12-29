@@ -18,19 +18,19 @@
  
  
 # Controls  
- Toggle Collision : U
- Toggle Fullscreen : F
- ## Normal Mode
-  Movemnt : ZQSD
-  Jump : Space
-  Shift : Sprint
-  Place Block : Left Mouse
-  Destroy Block : Right Mouse
- ## Freecam Mode
-  Movemnt : ZQSD
-  Fly Up : Space
-  Fly Down : Control
-  Speed Up : Shift
+ Toggle Collision : U  
+ Toggle Fullscreen : F  
+ ## Normal Mode  
+  Movemnt : ZQSD  
+  Jump : Space  
+  Shift : Sprint  
+  Place Block : Left Mouse  
+  Destroy Block : Right Mouse  
+ ## Freecam Mode  
+  Movemnt : ZQSD  
+  Fly Up : Space  
+  Fly Down : Control  
+  Speed Up : Shift  
   
  
  
