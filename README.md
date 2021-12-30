@@ -7,7 +7,7 @@
  This project was just a challenge I made for myself while also a way to learn graphics programminng on the side, so manage expectation..
    
      
- As of 29/12/2021 I don't believe that I'll ever continue to work on this in the future, though there is a lot of work that still needs to be done
+ As of 29/12/2021 I don't believe that I'll ever continue to work on this in the future, though there still is a lot of work that needs to be done
    
    
  Solution file for VS22 is included
