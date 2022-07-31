@@ -5,7 +5,7 @@
  The code is a bit messy but not that difficult to understand
    
      
- As of 29/12/2021 I'm don't plan to continue working on this in the future, though it's far from being in a finished state
+ As of 29/12/2021 I don't plan to continue working on this in the future, though it's far from being in a finished state
    
    
  Solution file for VS22 is included
